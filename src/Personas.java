@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class Personas {
     protected String nombre;
     protected String apellido;

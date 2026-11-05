@@ -2,6 +2,7 @@ import com.sun.source.doctree.SeeTree;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Reclamos {
     private int numero;

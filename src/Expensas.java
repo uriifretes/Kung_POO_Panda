@@ -5,8 +5,8 @@ public class Expensas {
     private YearMonth periodo;
     private double importe;
     private LocalDate expensas;
-    private EstadoExpensas estado;
+    private EstadosExpensa estado;
     private double saldoCapital;
     private double interesesPagados;
-    private pagos List<Pagos>;
+    private List<Pagos> pagos;
 }

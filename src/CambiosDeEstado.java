@@ -2,6 +2,6 @@ import java.time.LocalDateTime;
 
 public class CambiosDeEstado {
     private LocalDateTime fechaHora;
-    private EstadoReclamos estadoNuevo;
+    private EstadosReclamo estadoNuevo;
     private String observacion;
 }

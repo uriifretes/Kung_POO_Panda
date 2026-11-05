@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.List;
 
 public abstract class Equipos {
     private String codigo;
