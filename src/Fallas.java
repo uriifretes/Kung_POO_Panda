@@ -5,4 +5,10 @@ public class Fallas {
     private LocalDateTime fechaHora;
     private String descripcion;
     private String reportadaPor;
+
+    public Fallas(LocalDateTime fechaHora, String descripcion, String reportadaPor) {
+        this.fechaHora = fechaHora;
+        this.descripcion = descripcion;
+        this.reportadaPor = reportadaPor;
+    }
 }

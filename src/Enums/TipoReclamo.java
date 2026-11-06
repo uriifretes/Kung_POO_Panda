@@ -2,8 +2,8 @@ package Enums;
 
 public enum TipoReclamo {
     SEGURIDAD(Prioridad.ALTA),
-    CONVIVENCIA(Prioridad.MEDIA),
-    MANTENIMIENTO(Prioridad.BAJA),
+    MANTENIMIENTO(Prioridad.MEDIA),
+    CONVIVENCIA(Prioridad.BAJA),
     ADMINISTRATIVO(Prioridad.BAJA);
 
     private final Prioridad prioridadPorDefecto;

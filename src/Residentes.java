@@ -1,5 +1,14 @@
+import Enums.TipoResidente;
+
 public class Residentes extends Personas {
-    private boolean esInquilino;
+    private TipoResidente tipo;
     private boolean autorizadoReclamos;
     private boolean puedeAutorizarVisitas;
+
+    public Residentes(String nombre, String apellido, String documento, String telefono, String correo, TipoResidente tipo) {
+        super(nombre, apellido, documento, telefono, correo);
+        this.tipo = tipo;
+        this.autorizadoReclamos = false;
+        this.puedeAutorizarVisitas = false;
+    }
 }
