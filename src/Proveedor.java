@@ -1,3 +1,3 @@
 public class Proveedor extends Visitantes{
-    String empresa;
+    private String empresa;
 }

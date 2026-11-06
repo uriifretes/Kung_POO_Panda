@@ -2,7 +2,8 @@ import java.time.LocalDateTime;
 
 public class Notificaciones {
     private LocalDateTime fechaHora;
-    private TiposNotificaciones;
+    private TiposNotificaciones tipo;
     private String mensajes;
-    private boolean leída;
+    private boolean leida;
+    private Notificable destinatario;
 }

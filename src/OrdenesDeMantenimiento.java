@@ -6,6 +6,5 @@ public class OrdenesDeMantenimiento {
     private Prioridades prioridad;
     private String descripcionTrabajo;
     private LocalDate fechaCierre;
-    private EmpleadosDeMantenimiento tecnico;
     private String descripcionReparacion;
 }

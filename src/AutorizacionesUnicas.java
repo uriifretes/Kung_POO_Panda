@@ -1,6 +1,5 @@
-import java.time.LocalTime;
+import java.time.LocalDate;
 
 public class AutorizacionesUnicas extends Autorizaciones{
-    private LocalTime fecha;
-    private Ingresos ingreso;
+    private LocalDate fecha;
 }

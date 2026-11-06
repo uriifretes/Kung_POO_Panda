@@ -5,6 +5,6 @@ public abstract class Personal {
     private int legajo;
     private String nombre;
     private LocalDate fechaIngreso;
-    private List<Reclamos> reclamosAsignados;
+    private List<PedidosVecinos> reclamosAsignados;
 
 }

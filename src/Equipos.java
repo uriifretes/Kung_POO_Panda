@@ -7,6 +7,5 @@ public abstract class Equipos {
     private EstadosEquipo estado;
     private LocalDate fechaUltimoControl;
     private Sectores sector;
-    private List<Fallas> fallas ;
-    private List<OrdenesDeMantenimiento> ordenes ;
+    private List<Fallas> fallas;
 }

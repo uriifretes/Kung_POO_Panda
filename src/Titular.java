@@ -1,5 +1,5 @@
 import java.util.List;
 
-public class Administradores {
+public class Titular extends Personas implements Notificable {
     private List<Notificaciones> notificaciones;
 }

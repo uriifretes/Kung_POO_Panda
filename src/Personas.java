@@ -5,6 +5,6 @@ public class Personas {
     protected String apellido;
     protected String documento;
     protected String telefono;
-    private List<Notificaciones> Notificaciones;
+    protected String correo;
 
 }
