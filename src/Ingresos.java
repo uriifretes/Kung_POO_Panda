@@ -13,4 +13,13 @@ public class Ingresos {
         this.fechaHoraEgreso = null;
         this.guardia = guardia;
     }
+
+    public boolean estaAdentro(){
+        if (fechaHoraEgreso==null){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }
