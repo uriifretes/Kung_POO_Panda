@@ -6,6 +6,9 @@ public class Ingresos {
     private GuardiasDeSeguridad guardia;
 
     public Ingresos(LocalDateTime fechaHoraIngreso, GuardiasDeSeguridad guardia) {
+        if (fechaHoraIngreso==null||guardia==null){
+            throw new IllegalArgumentException("Has ingresado datos invalidos");
+        }
         this.fechaHoraIngreso = fechaHoraIngreso;
         this.fechaHoraEgreso = null;
         this.guardia = guardia;

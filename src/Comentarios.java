@@ -6,6 +6,9 @@ public class Comentarios {
     private String texto;
 
     public Comentarios(LocalDateTime fechaHora, String autor, String texto) {
+        if (fechaHora==null||autor==null||texto==null){
+            throw new IllegalArgumentException("Has ingresado datos invalidos");
+        }
         this.fechaHora = fechaHora;
         this.autor = autor;
         this.texto = texto;

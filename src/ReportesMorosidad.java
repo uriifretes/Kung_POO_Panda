@@ -7,6 +7,9 @@ public class ReportesMorosidad implements Reportes {
     private LocalDate fecha;
 
     public ReportesMorosidad(LocalDate fecha, List<Lotes> lotes) {
+        if (lotes==null||fecha==null){
+            throw new IllegalArgumentException("Has ingresado datos invalidos");
+        }
         this.lotes = lotes;
         this.fecha = fecha;
     }

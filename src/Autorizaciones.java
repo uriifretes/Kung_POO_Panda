@@ -10,6 +10,9 @@ public abstract class Autorizaciones {
     private List<Ingresos> ingresos;
 
     public Autorizaciones(Visitantes visitante,LocalTime horaDesde, LocalTime horaHasta) {
+        if (visitante==null||horaHasta==null||horaDesde==null|| !horaDesde.isBefore(horaHasta)){
+            throw new IllegalArgumentException("Has ingresado datos invalidos");
+        }
         this.visitante = visitante;
         this.cancelada = false;
         this.horaHasta = horaHasta;

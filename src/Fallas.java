@@ -7,6 +7,9 @@ public class Fallas {
     private String reportadaPor;
 
     public Fallas(LocalDateTime fechaHora, String descripcion, String reportadaPor) {
+        if (fechaHora==null||descripcion==null||reportadaPor==null){
+            throw new IllegalArgumentException("Has ingresado datos invalidos");
+        }
         this.fechaHora = fechaHora;
         this.descripcion = descripcion;
         this.reportadaPor = reportadaPor;

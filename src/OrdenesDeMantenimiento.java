@@ -11,6 +11,9 @@ public class OrdenesDeMantenimiento {
     private String descripcionReparacion;
 
     public OrdenesDeMantenimiento(int numero, LocalDate fechaApertura, Prioridad prioridad, String descripcionTrabajo) {
+        if (numero<=0||fechaApertura==null||prioridad==null||descripcionTrabajo==null ){
+            throw new IllegalArgumentException("Has ingresado datos invalidos");
+        }
         this.numero = numero;
         this.fechaApertura = fechaApertura;
         this.prioridad = prioridad;

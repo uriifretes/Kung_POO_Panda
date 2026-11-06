@@ -11,6 +11,9 @@ public class Pagos {
     private double montoCapital;
 
     public Pagos(LocalDate fecha, double importe, MedioPago medio, String numeroOperacion) {
+        if (fecha==null||importe<=0||medio==null||numeroOperacion==null){
+            throw new IllegalArgumentException("Has ingresado datos invalidos");
+        }
         this.fecha = fecha;
         this.importe = importe;
         this.medio = medio;

@@ -17,6 +17,9 @@ public abstract class PedidosVecinos  {
     private List<Comentarios> comentarios;
 
     public PedidosVecinos(int numero, LocalDateTime fechaHora, TipoReclamo tipo, String descripcion) {
+        if (numero<=0||fechaHora==null||tipo==null||descripcion==null){
+            throw new IllegalArgumentException("Has ingresado datos invalidos");
+        }
         this.numero = numero;
         this.fechaHora = fechaHora;
         this.tipo = tipo;

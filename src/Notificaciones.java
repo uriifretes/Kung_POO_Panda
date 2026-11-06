@@ -10,6 +10,9 @@ public class Notificaciones {
     private Notificable destinatario;
 
     public Notificaciones(LocalDateTime fechaHora, TipoNotificacion tipo, String mensajes, Notificable destinatario) {
+        if (fechaHora==null||tipo==null||mensajes==null||destinatario==null){
+            throw new IllegalArgumentException("Has ingresado datos invalidos");
+        }
         this.fechaHora = fechaHora;
         this.tipo = tipo;
         this.mensajes = mensajes;

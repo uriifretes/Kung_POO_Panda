@@ -16,6 +16,9 @@ public class Expensas {
     private List<AsientosDeAjuste> asientos;
 
     public Expensas(YearMonth periodo, double importe, LocalDate vencimiento) {
+        if (periodo==null|| importe<=0|| vencimiento==null){
+            throw new IllegalArgumentException("Has ingresado datos invalidos");
+        }
         this.periodo = periodo;
         this.importe = importe;
         this.vencimiento = vencimiento;

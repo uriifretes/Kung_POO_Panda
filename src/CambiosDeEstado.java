@@ -8,6 +8,9 @@ public class CambiosDeEstado {
     private String observacion;
 
     public CambiosDeEstado(LocalDateTime fechaHora, String observacion, EstadoReclamo estadoNuevo) {
+        if (fechaHora==null||estadoNuevo==null||observacion==null){
+            throw new IllegalArgumentException("Has ingresado datos invalidos");
+        }
         this.fechaHora = fechaHora;
         this.estadoNuevo = estadoNuevo;
         this.observacion = observacion;

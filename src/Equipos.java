@@ -13,6 +13,9 @@ public abstract class Equipos {
     private List<Fallas> fallas;
 
     public Equipos(String codigo, LocalDate fechaInstalacion, Sectores sector) {
+        if (codigo==null||fechaInstalacion==null||sector==null){
+            throw new IllegalArgumentException("Has ingresado datos invalidos");
+        }
         this.codigo = codigo;
         this.fechaInstalacion = fechaInstalacion;
         this.estado = EstadoEquipo.OPERATIVO;

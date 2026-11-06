@@ -7,8 +7,11 @@ public class AutorizacionesRecurrentes extends Autorizaciones {
     private LocalDate fechaDesde;
     private LocalDate fechaHasta;
 
-    public AutorizacionesRecurrentes(Visitantes visitante, LocalTime horaHasta, LocalTime horaDesde, LocalDate fechaDesde, LocalDate fechaHasta) {
-        super(visitante, horaHasta, horaDesde);
+    public AutorizacionesRecurrentes(Visitantes visitante, LocalTime horaDesde, LocalTime horaHasta, LocalDate fechaDesde, LocalDate fechaHasta) {
+        super(visitante, horaDesde, horaHasta);
+        if (fechaDesde==null|| fechaHasta==null|| !fechaDesde.isBefore(fechaHasta)){
+            throw new IllegalArgumentException("Has ingresado datos invalidos");
+        }
         this.fechaDesde = fechaDesde;
         this.fechaHasta = fechaHasta;
     }

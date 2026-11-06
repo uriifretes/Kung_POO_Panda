@@ -9,6 +9,9 @@ public class GuardiasDeSeguridad extends Personal {
 
     public GuardiasDeSeguridad(int legajo, String nombre, LocalDate fechaIngreso, Turno turno, PuestoGuardia puesto) {
         super(legajo, nombre, fechaIngreso);
+        if (turno==null||puesto==null){
+            throw new IllegalArgumentException("Has ingresado datos invalidos");
+        }
         this.turno = turno;
         this.puesto = puesto;
     }

@@ -9,6 +9,9 @@ public abstract class Personal {
     private List<PedidosVecinos> reclamosAsignados;
 
     public Personal(int legajo, String nombre, LocalDate fechaIngreso) {
+        if (legajo<=0||nombre==null||fechaIngreso==null){
+            throw new IllegalArgumentException("Has ingresado datos invalidos");
+        }
         this.legajo = legajo;
         this.nombre = nombre;
         this.fechaIngreso = fechaIngreso;

@@ -7,6 +7,9 @@ public class EmpleadosDeMantenimiento extends Personal{
 
     public EmpleadosDeMantenimiento(int legajo, String nombre, LocalDate fechaIngreso, Especialidad especialidad) {
         super(legajo, nombre, fechaIngreso);
+        if (especialidad==null){
+            throw new IllegalArgumentException("Has ingresado datos invalidos");
+        }
         this.especialidad = especialidad;
     }
 }
