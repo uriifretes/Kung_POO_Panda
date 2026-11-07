@@ -1,3 +1,5 @@
+import Enums.TipoReclamo;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,4 +19,18 @@ public abstract class Personal {
         this.fechaIngreso = fechaIngreso;
         this.reclamosAsignados = new ArrayList<>();
     }
+
+    public int getLegajo() {
+        return legajo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public LocalDate getFechaIngreso() {
+        return fechaIngreso;
+    }
+
+    public abstract boolean puedeAtender(TipoReclamo tipo);
 }

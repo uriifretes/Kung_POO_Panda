@@ -1,4 +1,5 @@
 import Enums.PuestoGuardia;
+import Enums.TipoReclamo;
 import Enums.Turno;
 
 import java.time.LocalDate;
@@ -14,5 +15,22 @@ public class GuardiasDeSeguridad extends Personal {
         }
         this.turno = turno;
         this.puesto = puesto;
+    }
+
+    @Override
+    public boolean puedeAtender(TipoReclamo tipo){
+        if (tipo== TipoReclamo.SEGURIDAD||tipo== TipoReclamo.CONVIVENCIA){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean esPortero(){
+        if (puesto== PuestoGuardia.PORTERIA){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }

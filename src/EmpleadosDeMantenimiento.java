@@ -1,4 +1,5 @@
 import Enums.Especialidad;
+import Enums.TipoReclamo;
 
 import java.time.LocalDate;
 
@@ -11,5 +12,12 @@ public class EmpleadosDeMantenimiento extends Personal{
             throw new IllegalArgumentException("Has ingresado datos invalidos");
         }
         this.especialidad = especialidad;
+    }
+    @Override
+    public boolean puedeAtender(TipoReclamo tipo){
+        if (tipo== TipoReclamo.MANTENIMIENTO){
+            return true;
+        }
+        return false;
     }
 }

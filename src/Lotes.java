@@ -23,6 +23,14 @@ public class Lotes {
         this.titular = titular;
         this.residentes = new ArrayList<>();
         this.pedidos = new ArrayList<>();
-        this.cuentaCorriente = new CuentasCorrientes();
+        this.cuentaCorriente = new CuentasCorrientes(this);
+    }
+
+    public Titular getTitular() {
+        return titular;
+    }
+
+    public int getNumero() {
+        return numero;
     }
 }

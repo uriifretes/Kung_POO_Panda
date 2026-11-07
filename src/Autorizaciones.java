@@ -76,6 +76,9 @@ public abstract class Autorizaciones {
         if (tieneIngresoAbierto()){
             throw new IngresoDuplicadoException("Ya hay un ingreso abierto");
         }
+        if (!guardia.esPortero()){
+            throw new  IllegalArgumentException("Solo el portero puede dar ingresos");
+        }
         if (!estaVigente(momento)){
             throw new SinAutorizacionException("No posees una autorizacion");
         }
