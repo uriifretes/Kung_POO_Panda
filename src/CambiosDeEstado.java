@@ -15,4 +15,16 @@ public class CambiosDeEstado {
         this.estadoNuevo = estadoNuevo;
         this.observacion = observacion;
     }
+
+    public LocalDateTime getFechaHora() {
+        return fechaHora;
+    }
+
+    public EstadoReclamo getEstadoNuevo() {
+        return estadoNuevo;
+    }
+
+    public String getObservacion() {
+        return observacion;
+    }
 }

@@ -13,4 +13,16 @@ public class Comentarios {
         this.autor = autor;
         this.texto = texto;
     }
+
+    public LocalDateTime getFechaHora() {
+        return fechaHora;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public String getTexto() {
+        return texto;
+    }
 }

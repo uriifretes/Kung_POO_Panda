@@ -14,4 +14,8 @@ public class Fallas {
         this.descripcion = descripcion;
         this.reportadaPor = reportadaPor;
     }
+
+    public LocalDateTime getFechaHora() {
+        return fechaHora;
+    }
 }

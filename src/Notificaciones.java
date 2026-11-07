@@ -19,4 +19,24 @@ public class Notificaciones {
         this.leida = false;
         this.destinatario = destinatario;
     }
+
+    public LocalDateTime getFechaHora() {
+        return fechaHora;
+    }
+
+    public TipoNotificacion getTipo() {
+        return tipo;
+    }
+
+    public String getMensajes() {
+        return mensajes;
+    }
+
+    public boolean isLeida() {
+        return leida;
+    }
+
+    public Notificable getDestinatario() {
+        return destinatario;
+    }
 }
