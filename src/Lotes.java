@@ -33,4 +33,93 @@ public class Lotes {
     public int getNumero() {
         return numero;
     }
+
+    public double getSuperficie() {
+        return superficie;
+    }
+
+    public List<Residentes> getResidentes() {
+        List<Residentes> devuelvo = new ArrayList<>();
+        for (int i = 0; i < residentes.size(); i++) {
+            devuelvo.add(residentes.get(i));
+        }
+        return devuelvo;
+    }
+
+    public List<PedidosVecinos> getPedidos() {
+        List<PedidosVecinos> devuelvo = new ArrayList<>();
+        for (int i = 0; i < pedidos.size(); i++) {
+            devuelvo.add(pedidos.get(i));
+        }
+        return devuelvo;
+    }
+
+    public CuentasCorrientes getCuentaCorriente() {
+        return cuentaCorriente;
+    }
+
+    public Residentes buscarResidente(String documento){
+        for (int i = 0; i < residentes.size(); i++) {
+            if (residentes.get(i).getDocumento().equals(documento)){
+                return residentes.get(i);
+            }
+        }
+        return null;
+    }
+
+    public void agregarResidente(Residentes r){
+        if (r==null|| r.getDocumento().equals(titular.getDocumento())|| buscarResidente(r.getDocumento())!=null){
+            throw new IllegalArgumentException("Ingresaste un dato erroneo o ya pertenece al lote");
+        }
+        else {
+            residentes.add(r);
+        }
+
+    }
+
+    public boolean puedePresentarReclamos(Personas p){
+        if (p.documento.equals(titular.getDocumento())){
+            return true;
+        }
+
+        Residentes r = buscarResidente(p.getDocumento());
+        if (r!=null && r.isAutorizadoReclamos()){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public boolean puedeAutorizarVisitas(Personas p){
+        if (p.getDocumento().equals(titular.getDocumento())){
+            return true;
+        }
+
+        Residentes r = buscarResidente(p.getDocumento());
+        if (r!=null && r.isPuedeAutorizarVisitas()){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public void agregarPedidos(PedidosVecinos pedido){
+        if (pedido!=null){
+            pedidos.add(pedido);
+        }
+        else {
+            throw  new IllegalArgumentException("El pedido no puede ser nulo");
+        }
+    }
+
+    public boolean estaMoroso(){
+        if (cuentaCorriente.isMoroso()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }

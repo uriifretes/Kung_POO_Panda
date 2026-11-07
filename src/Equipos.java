@@ -26,6 +26,7 @@ public abstract class Equipos {
         this.sector = sector;
         this.fallas = new ArrayList<>();
         this.ordenes = new ArrayList<>();
+        sector.agregarEquipos(this);
     }
 
     public String getCodigo() {

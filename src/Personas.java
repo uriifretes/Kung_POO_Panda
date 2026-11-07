@@ -17,4 +17,24 @@ public class Personas {
         this.telefono = telefono;
         this.correo = correo;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public String getDocumento() {
+        return documento;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
 }

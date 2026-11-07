@@ -1,3 +1,5 @@
+import Enums.Prioridad;
+
 import java.time.LocalDate;
 
 public class Luminarias extends Equipos{
@@ -11,5 +13,25 @@ public class Luminarias extends Equipos{
         }
         this.tiposLamparas = tiposLamparas;
         this.potencia = potencia;
+    }
+
+    public String getTiposLamparas() {
+        return tiposLamparas;
+    }
+
+    public int getPotencia() {
+        return potencia;
+    }
+
+    @Override
+    public String saberTipo(){
+        return ("Luminaria");
+    }
+    @Override
+    public Prioridad prioridaddeFalla(){
+        if (getSector().cantidadLuminariasFallando()>3){
+            return Prioridad.ALTA;
+        }
+        return Prioridad.MEDIA;
     }
 }

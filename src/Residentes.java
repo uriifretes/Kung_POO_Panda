@@ -14,4 +14,20 @@ public class Residentes extends Personas {
         this.autorizadoReclamos = false;
         this.puedeAutorizarVisitas = false;
     }
+
+    public boolean isAutorizadoReclamos() {
+        return autorizadoReclamos;
+    }
+
+    public boolean isPuedeAutorizarVisitas() {
+        return puedeAutorizarVisitas;
+    }
+
+    public void setAutorizadoReclamos(boolean autorizadoReclamos) {
+        this.autorizadoReclamos = autorizadoReclamos;
+    }
+
+    public void setPuedeAutorizarVisitas(boolean puedeAutorizarVisitas) {
+        this.puedeAutorizarVisitas = puedeAutorizarVisitas;
+    }
 }
