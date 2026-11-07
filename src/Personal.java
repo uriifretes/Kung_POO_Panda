@@ -1,3 +1,4 @@
+import Enums.EstadoReclamo;
 import Enums.TipoReclamo;
 
 import java.time.LocalDate;
@@ -33,4 +34,22 @@ public abstract class Personal {
     }
 
     public abstract boolean puedeAtender(TipoReclamo tipo);
+
+    public void asignarReclamo(PedidosVecinos p){
+        if (p ==null){
+            throw new IllegalArgumentException("Ingresaste datos incorrectos");
+        }
+        reclamosAsignados.add(p);
+    }
+
+    public int cantidadenCurso(){
+        int cant = 0;
+        for (int i = 0; i < reclamosAsignados.size(); i++) {
+            if (reclamosAsignados.get(i).getEstado()== EstadoReclamo.EN_CURSO){
+                cant=cant+1;
+            }
+
+        }
+        return cant;
+    }
 }

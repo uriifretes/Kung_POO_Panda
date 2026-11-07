@@ -103,6 +103,24 @@ public abstract class Equipos {
         }
     }
 
+    public OrdenesDeMantenimiento buscarOrden(int numero){
+        for (int i = 0; i < ordenes.size(); i++) {
+            if (ordenes.get(i).getNumero()==numero){
+                return ordenes.get(i);
+            }
+        }
+        return null;
+    }
+
+    public void cerrarOrden(int numero, LocalDate fecha, EmpleadosDeMantenimiento tecnico, String descripcion){
+        OrdenesDeMantenimiento o = buscarOrden(numero);
+        if (o==null){
+            throw new IllegalArgumentException("No se encontro la orden");
+        }
+        o.cerrar(fecha,tecnico,descripcion);
+        estado = EstadoEquipo.OPERATIVO;
+    }
+
 
 
 }

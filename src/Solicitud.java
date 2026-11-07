@@ -3,7 +3,7 @@ import Enums.TipoReclamo;
 import java.time.LocalDateTime;
 
 public class Solicitud extends PedidosVecinos{
-    public Solicitud(int numero, LocalDateTime fechaHora, TipoReclamo tipo, String descripcion) {
-        super(numero, fechaHora, tipo, descripcion);
+    public Solicitud(int numero, LocalDateTime fechaHora, TipoReclamo tipo, String descripcion, Lotes lotes, Personas presentadop) {
+        super(numero, fechaHora, tipo, descripcion, lotes, presentadop);
     }
 }
