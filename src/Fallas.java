@@ -15,6 +15,14 @@ public class Fallas {
         this.reportadaPor = reportadaPor;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public String getReportadaPor() {
+        return reportadaPor;
+    }
+
     public LocalDateTime getFechaHora() {
         return fechaHora;
     }

@@ -78,7 +78,7 @@ public class Lotes {
     }
 
     public boolean puedePresentarReclamos(Personas p){
-        if (p.documento.equals(titular.getDocumento())){
+        if (p.getDocumento().equals(titular.getDocumento())){
             return true;
         }
 

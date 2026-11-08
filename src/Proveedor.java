@@ -8,4 +8,8 @@ public class Proveedor extends Visitantes{
         }
         this.empresa = empresa;
     }
+
+    public String getEmpresa() {
+        return empresa;
+    }
 }

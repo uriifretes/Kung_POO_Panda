@@ -14,6 +14,14 @@ public class Ingresos {
         this.guardia = guardia;
     }
 
+    public LocalDateTime getFechaHoraIngreso() {
+        return fechaHoraIngreso;
+    }
+
+    public LocalDateTime getFechaHoraEgreso() {
+        return fechaHoraEgreso;
+    }
+
     public boolean estaAdentro(){
         if (fechaHoraEgreso==null){
             return true;
@@ -21,5 +29,14 @@ public class Ingresos {
         else {
             return false;
         }
+    }
+    public void registrarEgreso(LocalDateTime momento) {
+        if (momento == null || momento.isBefore(fechaHoraIngreso)) {
+            throw new IllegalArgumentException("La salida no puede ser anterior a la entrada");
+        }
+        if (fechaHoraEgreso != null) {
+            throw new IllegalStateException("La salida ya fue registrada");
+        }
+        fechaHoraEgreso = momento;
     }
 }

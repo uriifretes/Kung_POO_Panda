@@ -45,6 +45,14 @@ public class CuentasCorrientes {
         }
         Expensas e = new Expensas(periodo,importe,vencimiento);
         expensas.add(e);
+        if (saldoAFavor > 0) {
+            double aplicar = saldoAFavor;
+            if (aplicar > importe) {
+                aplicar = importe;
+            }
+            e.agregarAsiento(new AsientosDeAjuste(vencimiento, -aplicar, "Saldo a favor aplicado"));
+            saldoAFavor = saldoAFavor - aplicar;
+        }
         return e;
     }
 

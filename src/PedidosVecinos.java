@@ -1,11 +1,13 @@
 import Enums.EstadoReclamo;
 import Enums.Prioridad;
+import Enums.TipoNotificacion;
 import Enums.TipoReclamo;
 import Excepciones.LimiteReclamosException;
 import Excepciones.TransicionInvalidaException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -134,17 +136,14 @@ public abstract class PedidosVecinos  {
             throw new TransicionInvalidaException("El reclamo primero debe ser asignado");
         }
         if (estado==EstadoReclamo.ASIGNADO){
-            estado= EstadoReclamo.EN_CURSO;
-            historial.add(new CambiosDeEstado(momento, observacion, estado));
+            cambiarEstado(EstadoReclamo.EN_CURSO, momento, observacion);
         }
         else if (estado==EstadoReclamo.EN_CURSO){
-            estado= EstadoReclamo.RESUELTO;
             fechaResolucion = momento;
-            historial.add(new CambiosDeEstado(momento, observacion, estado));
+            cambiarEstado(EstadoReclamo.RESUELTO, momento, observacion);
         }
         else if (estado==EstadoReclamo.RESUELTO){
-            estado= EstadoReclamo.CERRADO;
-            historial.add(new CambiosDeEstado(momento, observacion, estado));
+            cambiarEstado(EstadoReclamo.CERRADO, momento, observacion);
         }
         else if (estado==EstadoReclamo.CERRADO){
             throw new TransicionInvalidaException("Es reclamo ya termino");
@@ -158,5 +157,49 @@ public abstract class PedidosVecinos  {
         cambiarEstado(EstadoReclamo.CERRADO, momento, "Cancelada por el vecino");
     }
 
+    public void reabrir(LocalDateTime momento) throws TransicionInvalidaException{
+        if (estado!= EstadoReclamo.RESUELTO){
+            throw new TransicionInvalidaException("El reclamo no esta resuelto, no tiene sentido que se reabra");
+        }
+        long dias = ChronoUnit.DAYS.between(fechaResolucion, momento); ///para ver cuanto paso desde que se cerro hasta ahora
+        if (dias>5){
+            throw new TransicionInvalidaException("No se puede reabrir el reclamo");
+        }
+        cambiarEstado(EstadoReclamo.EN_CURSO, momento, "Reabierto");
+    }
+
+
+    public boolean cerrarsiVencio(LocalDateTime ahora){
+        if (estado != EstadoReclamo.RESUELTO) {
+            return false;
+        }
+        long dias = ChronoUnit.DAYS.between(fechaResolucion, ahora);
+        if (dias > 5) {
+            cambiarEstado(EstadoReclamo.CERRADO, ahora, "Se cerro porque pasaron mas de 5 dias");
+            return true;
+        }
+        return false;
+    }
+
+    public boolean escalarPortiempo(LocalDateTime ahora, Administrador admin){
+        if (!escalado&& getPrioridad()==Prioridad.ALTA&&estado==EstadoReclamo.ABIERTO&&ChronoUnit.HOURS.between(fechaHora,ahora)>24){ //Chrono units aca cuenta la dferentes de horas entre, por el .hours y el .between
+            escalado = true;
+            Notificaciones n = new Notificaciones(ahora, TipoNotificacion.ESCALAMIENTO,"El reclamo " + numero + " esta hace mas de 24hrs", admin);
+            admin.agregarNotificacion(n);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    public void agregarComentario(LocalDateTime momento, String autor, String texto){
+        if (estado==EstadoReclamo.CERRADO){
+            throw new IllegalStateException("El reclamo ya esta cerrado");
+        }
+        else {
+            Comentarios c = new Comentarios(momento,autor,texto);
+            comentarios.add(c);
+        }
+    }
 
 }

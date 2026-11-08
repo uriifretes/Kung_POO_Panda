@@ -39,4 +39,8 @@ public class Notificaciones {
     public Notificable getDestinatario() {
         return destinatario;
     }
+
+    public void marcarcomoLeida() {
+        leida = true;
+    }
 }

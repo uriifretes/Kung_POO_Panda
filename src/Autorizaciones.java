@@ -22,6 +22,8 @@ public abstract class Autorizaciones {
         this.horaHasta = horaHasta;
         this.horaDesde = horaDesde;
         this.ingresos = new ArrayList<>();
+
+        visitante.agregarAutorizacion(this);
     }
 
     public LocalTime getHoraDesde() {
@@ -45,13 +47,13 @@ public abstract class Autorizaciones {
         for (int i = 0; i < ingresos.size(); i++) {
             devuelvo.add(ingresos.get(i));
         }
-        return ingresos;
+        return devuelvo;
     }
 
     public abstract boolean estaVigente(LocalDateTime momento);
 
     public boolean dentrodeFranja(LocalTime hora){
-        if (hora.isBefore(horaHasta)&&hora.isAfter(horaDesde)){
+        if (!hora.isBefore(horaDesde) && !hora.isAfter(horaHasta)){
             return true;
         }
         else {
@@ -73,7 +75,7 @@ public abstract class Autorizaciones {
     }
 
     protected void validarIngreso(GuardiasDeSeguridad guardia, LocalDateTime momento) throws SinAutorizacionException, IngresoDuplicadoException {
-        if (tieneIngresoAbierto()){
+        if (visitante.estaAdentro()){
             throw new IngresoDuplicadoException("Ya hay un ingreso abierto");
         }
         if (!guardia.esPortero()){
@@ -90,5 +92,13 @@ public abstract class Autorizaciones {
 
     public abstract Ingresos registrarIngreso(GuardiasDeSeguridad guardia, LocalDateTime momento) throws SinAutorizacionException, IngresoDuplicadoException;
 
-
+    public void registrarEgreso(LocalDateTime momento) {
+        for (int i = 0; i < ingresos.size(); i++) {
+            if (ingresos.get(i).estaAdentro()) {
+                ingresos.get(i).registrarEgreso(momento);
+                return;
+            }
+        }
+        throw new IllegalStateException("No hay un ingreso abierto para esta autorización");
+    }
 }
