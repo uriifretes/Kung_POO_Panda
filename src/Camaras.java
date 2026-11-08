@@ -1,4 +1,5 @@
 import Enums.Prioridad;
+import Enums.TipoNotificacion;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -7,6 +8,7 @@ import java.time.temporal.ChronoUnit;
 public class Camaras extends Equipos{
     private String resolucion;
     private int diasGrabacion;
+    private boolean avisado;
 
     public Camaras(String codigo, LocalDate fechaInstalacion, Sectores sector, String resolucion, int diasGrabacion) {
         super(codigo, fechaInstalacion, sector);
@@ -15,6 +17,7 @@ public class Camaras extends Equipos{
         }
         this.resolucion = resolucion;
         this.diasGrabacion = diasGrabacion;
+        this.avisado = false;
     }
     @Override
     public Prioridad prioridaddeFalla(){
@@ -37,6 +40,17 @@ public class Camaras extends Equipos{
         else {
             return false;
         }
+
+
+    }
+    public boolean avisarSiCorresponde(LocalDateTime ahora, Administrador admin) {
+        if (!avisado && superaHorasSinFuncionar(ahora)) {
+            avisado = true;
+            admin.agregarNotificacion(new Notificaciones(ahora, TipoNotificacion.CAMARA_SIN_FUNCIONAR,
+                    "La camara " + getCodigo() + " lleva mas de 48 horas sin funcionar", admin));
+            return true;
+        }
+        return false;
     }
 
 }
