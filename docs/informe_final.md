@@ -12,7 +12,7 @@ Durante la codificación nos apartamos del diseño de la etapa 1 en varios punto
 - **Reglas que dependen del tiempo.** En la etapa 1 había métodos que solo consultaban, como debeEscalarse() y debeCerrarse(). En el código los reemplazamos por métodos que aplican el cambio: escalarPortiempo() (reclamo de prioridad ALTA abierto más de 24 horas), cerrarsiVencio() (pedido resuelto hace más de 5 días) y avisarSiCorresponde() (cámara más de 48 horas sin funcionar). ControladorGeneral los ejecuta con procesarVencimientos(), al iniciar el programa y desde el menú del administrador.
 - **Orden de los reclamos.** PedidosVecinos implementa Comparable (ordena por fecha) y agregamos ComparadorPorPrioridad, que implementa Comparator. El reporte de reclamos pendientes lo usa para mostrar primero los de prioridad ALTA.
 - **Supuestos.** Sacamos la cancelación de autorizaciones de visita (S34) y el supuesto S36, porque no coincidían con el código. También ajustamos S15 y S32: el asiento de ajuste ya no queda asociado a un pago.
-- **Persistencia.** [COMPLETAR cuando esté: qué se guarda, en qué archivos y qué clases se agregaron.]
+- **Persistencia.**
 
 ## 2. Dificultades encontradas
 
