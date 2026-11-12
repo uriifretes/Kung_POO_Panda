@@ -24,4 +24,4 @@ Cambios en el diagrama de clases respecto del final de la etapa 1
 - Notificaciones: se saca enviar().
 - Muchos metodos cambian de nombre.
 - La mayoría de las clases pasan a llamarse en plural, como en el código
-- Se agrega la clase ArchivoDatos (paquete persistencia), que guarda todos los datos en un archivo al salir del programa y los carga al iniciarlo. Para eso las clases del modelo y los controladores implementan Serializable.
+- Se agrega la clase ArchivoDatos (paquete persistencia), que guarda todos los datos en un archivo al salir del programa y los carga al iniciarlo. Para eso las clases del modelo y los controladores implementan Serializable.    
