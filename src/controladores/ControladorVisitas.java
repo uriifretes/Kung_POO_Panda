@@ -75,7 +75,8 @@ public class ControladorVisitas implements Serializable {
             throw new IllegalArgumentException("Esa persona no puede autorizar visitas en el lote");
         }
         Visitantes v = tenerVisitante(docVi);
-        new AutorizacionesUnicas(v, desde, hasta, fecha);
+        Autorizaciones a = new AutorizacionesUnicas(v, desde, hasta, fecha);
+        v.agregarAutorizacion(a);
     }
 
     public void registrarIngreso(String docVi, int legajo) throws SinAutorizacionException, IngresoDuplicadoException {
@@ -103,7 +104,8 @@ public class ControladorVisitas implements Serializable {
             throw new IllegalArgumentException("Esa persona no puede autorizar visitas");
         }
         Visitantes v = tenerVisitante(docVi);
-        new AutorizacionesRecurrentes(v, desde, hasta, fechaDesde, fechaHasta);
+        Autorizaciones a = new AutorizacionesRecurrentes(v, desde, hasta, fechaDesde, fechaHasta);
+        v.agregarAutorizacion(a);
     }
 
 

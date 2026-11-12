@@ -25,8 +25,6 @@ public abstract class Autorizaciones implements Serializable {
         this.horaHasta = horaHasta;
         this.horaDesde = horaDesde;
         this.ingresos = new ArrayList<>();
-
-        visitante.agregarAutorizacion(this);
     }
 
     public LocalTime getHoraDesde() {

@@ -60,6 +60,7 @@ public class PruebasVisitas {
     private static void probarIngresoYSalida() {
         Visitantes v = visitante();
         Autorizaciones a = new AutorizacionesRecurrentes(v, LocalTime.of(8, 0), LocalTime.of(20, 0), DIA, DIA.plusDays(14));
+        v.agregarAutorizacion(a);
         try {
             a.registrarIngreso(portero(), DIA.atTime(10, 0));
             Verificar.verdadero("Ingreso: el visitante queda adentro", v.estaAdentro());
@@ -75,6 +76,7 @@ public class PruebasVisitas {
     private static void probarIngresoDuplicado() {
         Visitantes v = visitante();
         Autorizaciones a = new AutorizacionesRecurrentes(v, LocalTime.of(8, 0), LocalTime.of(20, 0), DIA, DIA.plusDays(14));
+        v.agregarAutorizacion(a);
         try {
             a.registrarIngreso(portero(), DIA.atTime(10, 0));
             a.registrarIngreso(portero(), DIA.atTime(12, 0));
@@ -89,6 +91,7 @@ public class PruebasVisitas {
     private static void probarUnicaUnSoloIngreso() {
         Visitantes v = visitante();
         Autorizaciones a = new AutorizacionesUnicas(v, LocalTime.of(9, 0), LocalTime.of(18, 0), DIA);
+        v.agregarAutorizacion(a);
         try {
             a.registrarIngreso(portero(), DIA.atTime(10, 0));
             a.registrarEgreso(DIA.atTime(11, 0));
