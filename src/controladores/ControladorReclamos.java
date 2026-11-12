@@ -15,6 +15,7 @@ import Excepciones.TransicionInvalidaException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ControladorReclamos {
@@ -35,6 +36,7 @@ public class ControladorReclamos {
         for (int i = 0; i < pedidos.size(); i++) {
             devolver.add(pedidos.get(i));
         }
+        Collections.sort(devolver);
         return devolver;
     }
 

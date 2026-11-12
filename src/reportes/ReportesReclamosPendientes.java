@@ -1,5 +1,6 @@
 package reportes;
 
+import reclamos.ComparadorPorPrioridad;
 import reclamos.PedidosVecinos;
 
 import Enums.EstadoReclamo;
@@ -18,22 +19,13 @@ public class ReportesReclamosPendientes implements Reportes {
         this.reclamos = new ArrayList<>(reclamos);
     }
 
-    private void ordenarPorFecha() {
-        for (int i = 0; i < reclamos.size() - 1; i++) {
-            for (int j = 0; j < reclamos.size() - 1 - i; j++) {
-                PedidosVecinos actual = reclamos.get(j);
-                PedidosVecinos siguiente = reclamos.get(j + 1);   ////es por burbujeo
-                if (actual.getFechaHora().isAfter(siguiente.getFechaHora())) {
-                    reclamos.set(j, siguiente);
-                    reclamos.set(j + 1, actual);
-                }
-            }
-        }
+    private void ordenarPorPrioridad() {
+        reclamos.sort(new ComparadorPorPrioridad());
     }
 
     @Override
     public String generar() {
-        ordenarPorFecha();
+        ordenarPorPrioridad();
         String texto = "REPORTE DE RECLAMOS PENDIENTES: " + "\n";
         int cantidad = 0;
         for (int i = 0; i < reclamos.size(); i++) {

@@ -19,7 +19,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class PedidosVecinos  {
+public abstract class PedidosVecinos implements Comparable<PedidosVecinos> {
     private int numero;
     private LocalDateTime fechaHora;
     private Enums.TipoReclamo tipo;
@@ -115,6 +115,11 @@ public abstract class PedidosVecinos  {
 
     public Personal getResponsable() {
         return responsable;
+    }
+
+    @Override
+    public int compareTo(PedidosVecinos otro) {
+        return fechaHora.compareTo(otro.getFechaHora());
     }
 
     private void cambiarEstado(EstadoReclamo nuevo, LocalDateTime momento, String observacion){
