@@ -1,4 +1,3 @@
-/** Ayuda para las pruebas: compara lo esperado con lo obtenido y cuenta cuantas pasan. */
 public class Verificar {
     private static int correctas = 0;
     private static int fallidas = 0;

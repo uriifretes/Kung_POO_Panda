@@ -26,7 +26,6 @@ public class Main {
             }
         }
 
-        // S03: los controles que dependen del tiempo tambien corren al iniciar
         try {
             general.procesarVencimientos();
         } catch (IllegalArgumentException e) {

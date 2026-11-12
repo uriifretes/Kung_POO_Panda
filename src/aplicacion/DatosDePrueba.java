@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.YearMonth;
 
-/** Carga datos de ejemplo usando solo los controladores, para poder probar las vistas sin cargar todo a mano. */
 public class DatosDePrueba {
 
     public static void cargar(ControladorGeneral g) {
@@ -48,7 +47,6 @@ public class DatosDePrueba {
         g.getLotes().registrarLote(5, 550, "Elena", "Suarez", "30999000", "1155550006", "elena@mail.com");
         g.getLotes().registrarLote(6, 900, "Federico", "Gomez", "31111222", "1155550007", "federico@mail.com");
 
-        // Pedro puede presentar reclamos y autorizar visitas; Sofia no tiene permisos; Martin solo reclamos
         g.getLotes().agregarResidente(1, "Pedro", "Lopez", "40111222", "1155550002", "pedro@mail.com", TipoResidente.FAMILIAR);
         g.getLotes().autorizarReclamos(1, "40111222", true);
         g.getLotes().habilitarVisitas(1, "40111222", true);
@@ -72,12 +70,10 @@ public class DatosDePrueba {
         g.getEquipos().registrarLuminarias("LUM-05", "Calle 2", "LED", 40);
         g.getEquipos().registrarLuminarias("LUM-06", "Plaza Central", "Sodio", 70);
 
-        // Tres luminarias de la Calle 1 fallando: si falla una mas, la orden sale con prioridad ALTA
         g.getEquipos().registrarFalla("LUM-01", "No enciende", "Ana Lopez");
         g.getEquipos().registrarFalla("LUM-02", "Parpadea", "Carlos Perez");
         g.getEquipos().registrarFalla("LUM-03", "No enciende", "Diego Ruiz");
 
-        // La camara de la plaza ya tiene una orden abierta
         g.getEquipos().registrarFalla("CAM-02", "Imagen borrosa", "Laura Benitez");
         g.getEquipos().registrarOrden("CAM-02", "Limpiar y ajustar el lente");
 
@@ -92,7 +88,6 @@ public class DatosDePrueba {
         g.getVisitas().registrarVisitante("Marcos", "Vega", "35000333", "1155550012", "marcos@mail.com");
         g.getVisitas().registrarProveedor("Lucia", "Paz", "36000444", "1155550013", "lucia@mail.com", "Agua Pura SRL");
 
-        // Julia: unica para hoy, todo el dia. Hugo: recurrente por 30 dias. Marcos: unica de ayer (ya no sirve)
         g.getVisitas().autorizacionUnica(1, "30111222", "35000111", LocalTime.of(0, 0), LocalTime.of(23, 59), hoy);
         g.getVisitas().aRecurrente(1, "40111222", "36000222", LocalTime.of(7, 0), LocalTime.of(20, 0), hoy, hoy.plusDays(29));
         g.getVisitas().autorizacionUnica(2, "30333444", "35000333", LocalTime.of(0, 0), LocalTime.of(23, 59), hoy.minusDays(1));
@@ -101,37 +96,28 @@ public class DatosDePrueba {
 
     private static void cargarPedidos(ControladorGeneral g) {
         try {
-            // 1: reclamo de seguridad abierto (prioridad ALTA)
             g.getReclamos().crearReclamo(1, "30111222", TipoReclamo.SEGURIDAD, "Porton del fondo abierto de noche");
             g.getReclamos().comentar(1, "Ana Lopez", "Por favor revisarlo hoy");
 
-            // 2: solicitud de mantenimiento abierta, para asignar
             g.getReclamos().crearSolicitud(1, "40111222", TipoReclamo.MANTENIMIENTO, "Cambiar la lampara del poste de la esquina");
-
-            // 3: reclamo de convivencia asignado a un guardia
             g.getReclamos().crearReclamo(2, "30333444", TipoReclamo.CONVIVENCIA, "Ruidos molestos despues de las 23");
             g.getReclamos().asignar(3, 10);
 
-            // 4: reclamo de mantenimiento en curso
             g.getReclamos().crearReclamo(3, "30555666", TipoReclamo.MANTENIMIENTO, "Perdida de agua en la vereda");
             g.getReclamos().asignar(4, 21);
             g.getReclamos().avanzar(4, "El plomero empezo el arreglo");
             g.getReclamos().comentar(4, "Raul Soto", "Falta un repuesto, se termina manana");
-
-            // 5: solicitud administrativa resuelta (se puede reabrir dentro de los 5 dias)
             g.getReclamos().crearSolicitud(4, "40777888", TipoReclamo.ADMINISTRATIVO, "Pedido de copia del reglamento");
             g.getReclamos().asignar(5, 1);
             g.getReclamos().avanzar(5, "En revision");
             g.getReclamos().avanzar(5, "Se envio por mail");
 
-            // 6: reclamo de seguridad cerrado
             g.getReclamos().crearReclamo(5, "30999000", TipoReclamo.SEGURIDAD, "Camara de la entrada apuntando mal");
             g.getReclamos().asignar(6, 11);
             g.getReclamos().avanzar(6, "Se reviso la camara");
             g.getReclamos().avanzar(6, "Camara reorientada");
             g.getReclamos().avanzar(6, "Cerrado por el administrador");
 
-            // 7: solicitud cancelada por el vecino
             g.getReclamos().crearSolicitud(2, "30333444", TipoReclamo.MANTENIMIENTO, "Podar el arbol del frente");
             g.getReclamos().cancelar(7);
         } catch (TransicionInvalidaException | LimiteReclamosException e) {
@@ -147,10 +133,8 @@ public class DatosDePrueba {
         g.getExpensas().emitirExpensas(mes.minusMonths(1), 1500000);
         g.getExpensas().emitirExpensas(mes, 1550000);
 
-        // Descuento sobre la expensa mas vieja del lote 2
         g.getExpensas().registrarAsientos(2, mes.minusMonths(4), -10000, "Descuento por error de facturacion", LocalDate.now());
 
-        // Lote 1 paga todo, 2, 4 y 5 pagan los dos meses mas viejos (4 con tarjeta). Los lotes 3 y 6 no pagan y quedan morosos
         try {
             LocalDateTime ahora = LocalDateTime.now();
             g.getExpensas().registrarPago(1, 1200000, MedioPago.TRANSFERENCIA, null, ahora);

@@ -82,7 +82,6 @@ public class PruebasExpensas {
         }
     }
 
-    // Un pago se aplica de la expensa mas vieja a la mas nueva, y lo que sobra queda a favor
     private static void probarPagoEmpiezaPorLaMasVieja() {
         Lotes l = lote(1, 500);
         CuentasCorrientes c = l.getCuentaCorriente();
@@ -111,8 +110,6 @@ public class PruebasExpensas {
             Verificar.ok("Un pago de 0 no se acepta");
         }
     }
-
-    // Mas de 3 periodos vencidos impagos: moroso y se avisa al titular
     private static void probarMorosidad() {
         Lotes conTres = lote(1, 500);
         Lotes conCuatro = lote(2, 500);
