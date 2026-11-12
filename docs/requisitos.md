@@ -74,7 +74,7 @@ Las reglas de negocio son las del enunciado (ver `enunciado.md`).
 
 **S14** - Un período impago es una expensa vencida con saldo de capital mayor a cero.
 
-**S15** - Un asiento de ajuste tiene fecha, monto (positivo o negativo), motivo y el pago que corrige.
+**S15** - Un asiento de ajuste tiene fecha, monto (positivo o negativo) y motivo.
 
 ### Luminarias y cámaras
 
@@ -116,10 +116,8 @@ S30 - El titular siempre puede autorizar visitas. Un residente solo puede si el 
 
 S31 - Una apelación de deuda se registra como una solicitud de tipo ADMINISTRATIVO.
 
-S32 - Para disminuir intereses se registra un asiento de ajuste negativo sobre la expensa. Un asiento corrige un pago o una expensa.
+S32 - Para disminuir intereses se registra un asiento de ajuste negativo sobre la expensa.
 
 S33 - En los pagos con tarjeta se registra el número de operación del posnet. No se guardan datos de la tarjeta.
 
 S35 - Las notificaciones se marcan como leídas cuando el destinatario las abre.
-
-S36 - Las solicitudes (pedidos) y los reclamos (quejas) usan la misma clase y el mismo circuito de estados. Se distinguen con un atributo. Las solicitudes las cierra el administrador cuando están resueltas, sin esperar los 5 días, y no se pueden reabrir.

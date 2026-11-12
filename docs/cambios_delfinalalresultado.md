@@ -1,0 +1,26 @@
+Cambios en el diagrama de clases respecto del final de la etapa 1
+
+- PedidosVecinos implementa Comparable<T>: compareTo() compara por fecha y hora.
+- Se agregan la interfaz Comparator<T> y la clase ComparadorPorPrioridad, que ordena los pedidos por prioridad y, si empatan, por fecha. ReportesReclamosPendientes suma ordenarPorPrioridad(), que lo usa para listar primero los de prioridad ALTA.
+- PedidosVecinos reemplaza debeEscalarse() y marcarEscalado() por escalarPortiempo(ahora, admin)
+- PedidosVecinos reemplaza debeCerrarse() y cerrar() por cerrarsiVencio(ahora)
+- PedidosVecinos suma cambiarEstado()
+- Se saca puedeReabrirse() de PedidosVecinos, Reclamos y Solicitud.
+- Personal: se saca verReclamosAsignados().
+- Lotes: se saca calcularCoeficiente().
+- Lotes suma buscarResidente(documento) y puedeAutorizarVisitas(p)
+- Residentes: esInquilino pasa a ser tipo: TipoResidente, y darPermisoVisitas() y quitarPermisoVisitas() se reemplazan por setPuedeAutorizarVisitas(valor).
+- Se saca mostrarDatos() de Personas y sus subclases.
+- Visitantes pierde autorizacionesVigentes().
+- Autorizaciones pierde cancelar() y el atributo cancelada
+- tieneIngresoAbierto() pasa a estar implementado en Autorizaciones en lugar de en cada subclase.
+- Autorizaciones suma validarIngreso() (controla que el visitante no esté adentro, que el guardia sea de portería y que la autorización esté vigente), agregarIngresar() (protegido) y registrarEgreso(momento).
+- Expensas:  Suma mesesDeAtraso(fecha), deuda(fecha), que devuelve el capital más los intereses, y actualizarEstado() (privado), que deja la expensa en PAGADA, PARCIAL o PENDIENTE según los pagos.
+- GestorExpensas: verificarOperacion() recibe la lista de lotes para buscar el número de operación en todos los pagos, y se saca calcularSuperficieTotal().
+- Equipos: Suma ultimaFalla(), estaFallando() y buscarOrden(numero).
+- Camaras suma el atributo avisado y avisarSiCorresponde(ahora, admin), que notifica una sola vez al administrador si la cámara lleva más de 48 horas sin funcionar.
+- Luminarias: tipoLampara pasa a llamarse tiposLamparas.
+- Sectores: Se saca quitarEquipo().
+- Notificaciones: se saca enviar().
+- Muchos metodos cambian de nombre.
+- La mayoría de las clases pasan a llamarse en plural, como en el código
