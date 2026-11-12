@@ -3,8 +3,9 @@ package expensas;
 import Enums.MedioPago;
 
 import java.time.LocalDate;
+import java.io.Serializable;
 
-public class Pagos {
+public class Pagos implements Serializable {
     private LocalDate fecha;
     private double importe;
     private Enums.MedioPago medio;

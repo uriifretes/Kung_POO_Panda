@@ -16,8 +16,9 @@ import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 
-public class ControladorExpensas {
+public class ControladorExpensas implements Serializable {
     private ControladorLotes controladorLotes;
     private GestorExpensas gestor;
 

@@ -1,8 +1,9 @@
 package expensas;
 
 import java.time.LocalDate;
+import java.io.Serializable;
 
-public class AsientosDeAjuste {
+public class AsientosDeAjuste implements Serializable {
     private LocalDate fecha;
     private double monto;
     private String motivo;

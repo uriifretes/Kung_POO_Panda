@@ -1,8 +1,9 @@
 package reclamos;
 
 import java.time.LocalDateTime;
+import java.io.Serializable;
 
-public class Comentarios {
+public class Comentarios implements Serializable {
     private LocalDateTime fechaHora;
     private String autor;
     private String texto;

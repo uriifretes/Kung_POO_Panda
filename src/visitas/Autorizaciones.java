@@ -9,8 +9,9 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 
-public abstract class Autorizaciones {
+public abstract class Autorizaciones implements Serializable {
     private LocalTime horaDesde;
     private LocalTime horaHasta;
     private Visitantes visitante;

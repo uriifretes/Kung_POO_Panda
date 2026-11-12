@@ -5,8 +5,9 @@ import lotes.Lotes;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.List;
+import java.io.Serializable;
 
-public class GestorExpensas {
+public class GestorExpensas implements Serializable {
 
     public void emitirExpensas(YearMonth periodo, double presupuesto, List<Lotes> lotes){
        if (periodo==null|| presupuesto<=0||lotes.isEmpty()){

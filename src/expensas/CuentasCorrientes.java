@@ -12,8 +12,9 @@ import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 
-public class CuentasCorrientes {
+public class CuentasCorrientes implements Serializable {
     private boolean moroso;
     private double saldoAFavor;
     private List<Expensas> expensas;

@@ -8,8 +8,9 @@ import Enums.TipoReclamo;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 
-public abstract class Personal {
+public abstract class Personal implements Serializable {
     private int legajo;
     private String nombre;
     private LocalDate fechaIngreso;

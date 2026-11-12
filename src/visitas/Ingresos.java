@@ -3,8 +3,9 @@ package visitas;
 import personal.GuardiasDeSeguridad;
 
 import java.time.LocalDateTime;
+import java.io.Serializable;
 
-public class Ingresos {
+public class Ingresos implements Serializable {
     private LocalDateTime fechaHoraIngreso;
     private LocalDateTime fechaHoraEgreso;
     private GuardiasDeSeguridad guardia;

@@ -3,8 +3,9 @@ package reclamos;
 import Enums.EstadoReclamo;
 
 import java.time.LocalDateTime;
+import java.io.Serializable;
 
-public class CambiosDeEstado {
+public class CambiosDeEstado implements Serializable {
     private LocalDateTime fechaHora;
     private Enums.EstadoReclamo estadoNuevo;
     private String observacion;

@@ -14,8 +14,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 
-public class ControladorEquipos {
+public class ControladorEquipos implements Serializable {
     private ControladorPersonal controladorPersonal;
     private List<Sectores> sectores;
     private List<Equipos> equipos;

@@ -8,8 +8,9 @@ import reclamos.PedidosVecinos;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.io.Serializable;
 
-public class ControladorGeneral {
+public class ControladorGeneral implements Serializable {
     private ControladorLotes lotes;
     private ControladorPersonal personal;
     private ControladorExpensas expensas;

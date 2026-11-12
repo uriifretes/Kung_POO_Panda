@@ -10,10 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
-/**
- * Clase de apoyo para todas las vistas: concentra la lectura por teclado y la
- * validacion de datos, asi ninguna vista repite codigo de Scanner.
- */
+
 public class Consola {
     private static final Scanner teclado = new Scanner(System.in);
 

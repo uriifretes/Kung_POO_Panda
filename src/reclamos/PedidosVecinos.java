@@ -18,8 +18,9 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 
-public abstract class PedidosVecinos implements Comparable<PedidosVecinos> {
+public abstract class PedidosVecinos implements Comparable<PedidosVecinos>, Serializable {
     private int numero;
     private LocalDateTime fechaHora;
     private Enums.TipoReclamo tipo;

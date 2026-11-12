@@ -1,8 +1,9 @@
 package personas;
 
 import java.util.List;
+import java.io.Serializable;
 
-public class Personas {
+public class Personas implements Serializable {
     protected String nombre;
     protected String apellido;
     protected String documento;

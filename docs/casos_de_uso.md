@@ -17,7 +17,6 @@
 | CU11 | Ver solicitudes asignadas | Guardia, Empleado | — |
 | CU12 | Actualizar estado de solicitud | Guardia, Empleado, Administrador | include CU10 |
 | CU13 | Cerrar solicitud | Administrador | — |
-| CU14 | Cambiar presupuesto del mes | Administrador | — |
 | CU15 | Emitir expensas | Administrador | — |
 | CU16 | Registrar pago | Titular, Administrador | include CU17, include CU19 |
 | CU17 | Calcular intereses | (sistema) | — |
@@ -34,12 +33,10 @@
 | CU28 | Cerrar orden de mantenimiento | Empleado, Administrador | — |
 | CU29 | Consultar estado de equipos | Administrador, Guardia, Empleado | — |
 | CU30 | Marcar equipo fuera de servicio | Administrador | — |
-| CU31 | Modificar sector | Administrador | — |
 | CU32 | Dar autorización | Titular, Residente | — |
 | CU33 | Dar autorización recurrente | Titular, Residente | extend de CU32 |
 | CU34 | Ver autorización | Visitante, Proveedor | — |
 | CU35 | Ver autorizaciones | Administrador | — |
-| CU36 | Cancelar autorización | Administrador | — |
 | CU37 | Gestionar permiso de autorizaciones | Administrador | — |
 | CU38 | Cancelar autorización a vecino | Administrador | extend de CU37 |
 | CU39 | Guardar ingreso | Guardia | include CU40 |
@@ -189,25 +186,15 @@ En el diagrama, los casos que dicen "(sistema)" no se conectan con ningún actor
 
 ## Expensas y pagos
 
-### CU14 - Cambiar presupuesto del mes
-
-| **NOMBRE:** | **Cambiar presupuesto del mes** |
-|---|---|
-| **NÚMERO:** | CU14 |
-| **ACTOR/ES** | Administrador |
-| **PRECONDICIONES** | Las expensas de ese período todavía no se emitieron. |
-| **FLUJO PRINCIPAL** | 1. El administrador elige "Cambiar presupuesto".<br>2. Ingresa el período (mes y año) y el presupuesto total del mes.<br>3. El sistema guarda el presupuesto de ese período, reemplazando el anterior si había uno.<br>4. El sistema confirma. |
-| **FLUJO ALTERNATIVO** | 2a. **Error:** el presupuesto es menor o igual a cero. Se informa y se pide de nuevo.<br>3a. **Error:** las expensas de ese período ya se emitieron. Se informa que no se puede cambiar; las correcciones se hacen con un asiento de ajuste (CU23). |
-
 ### CU15 - Emitir expensas
 
 | **NOMBRE:** | **Emitir expensas** |
 |---|---|
 | **NÚMERO:** | CU15 |
 | **ACTOR/ES** | Administrador |
-| **PRECONDICIONES** | Hay lotes cargados y el presupuesto del período está cargado (CU14). |
-| **FLUJO PRINCIPAL** | 1. El administrador elige "Emitir expensas" e ingresa el período.<br>2. El sistema suma la superficie de todos los lotes.<br>3. Para cada lote, calcula el coeficiente (superficie del lote / superficie total).<br>4. Crea una expensa por lote con importe = presupuesto × coeficiente, vencimiento el día 10 y estado PENDIENTE.<br>5. El sistema informa cuántas expensas emitió. |
-| **FLUJO ALTERNATIVO** | 1a. **Error:** las expensas de ese período ya fueron emitidas. Se informa y termina.<br>1b. No hay presupuesto cargado para ese período. El sistema pide cargarlo primero (CU14). |
+| **PRECONDICIONES** | Hay lotes cargados. |
+| **FLUJO PRINCIPAL** | 1. El administrador elige "Emitir expensas" e ingresa el período y el presupuesto total del mes.<br>2. El sistema suma la superficie de todos los lotes.<br>3. Para cada lote, calcula el coeficiente (superficie del lote / superficie total).<br>4. Crea una expensa por lote con importe = presupuesto × coeficiente, vencimiento el día 10 y estado PENDIENTE.<br>5. El sistema informa cuántas expensas emitió. |
+| **FLUJO ALTERNATIVO** | 1a. **Error:** las expensas de ese período ya fueron emitidas. Se informa y termina.<br>1b. **Error:** el presupuesto es menor o igual a cero. Se informa y termina. |
 
 ### CU16 - Registrar pago
 
@@ -361,16 +348,6 @@ En el diagrama, los casos que dicen "(sistema)" no se conectan con ningún actor
 | **FLUJO PRINCIPAL** | 1. El administrador elige el equipo.<br>2. Ingresa el motivo.<br>3. El sistema pasa el equipo a FUERA DE SERVICIO. |
 | **FLUJO ALTERNATIVO** | 3a. El equipo tenía una orden abierta: el sistema la cierra con la descripción "Equipo fuera de servicio". |
 
-### CU31 - Modificar sector
-
-| **NOMBRE:** | **Modificar sector** |
-|---|---|
-| **NÚMERO:** | CU31 |
-| **ACTOR/ES** | Administrador |
-| **PRECONDICIONES** | — |
-| **FLUJO PRINCIPAL** | 1. El administrador elige "Modificar sector".<br>2. Elige un sector existente o crea uno nuevo con nombre y tipo (calle interna, acceso o espacio común).<br>3. Agrega equipos nuevos (luminarias o cámaras) o quita equipos del sector.<br>4. El sistema guarda los cambios. |
-| **FLUJO ALTERNATIVO** | 2a. **Error:** ya existe un sector con ese nombre. Se informa y se pide otro.<br>3a. **Error:** el código del equipo nuevo ya existe. Se informa y se pide otro.<br>3b. **Error:** se quiere quitar un equipo que tiene una orden abierta. No se permite hasta cerrar la orden. |
-
 ## Visitas y autorizaciones
 
 ### CU32 - Dar autorización
@@ -413,16 +390,6 @@ En el diagrama, los casos que dicen "(sistema)" no se conectan con ningún actor
 | **FLUJO PRINCIPAL** | 1. El administrador elige "Ver autorizaciones".<br>2. El sistema muestra todas las autorizaciones vigentes con visita, lote, quién autorizó, fecha y franja. |
 | **FLUJO ALTERNATIVO** | 2a. El administrador filtra por lote o por fecha. Se muestran solo esas.<br>2b. No hay autorizaciones vigentes. Se informa. |
 
-### CU36 - Cancelar autorización
-
-| **NOMBRE:** | **Cancelar autorización** |
-|---|---|
-| **NÚMERO:** | CU36 |
-| **ACTOR/ES** | Administrador |
-| **PRECONDICIONES** | La autorización está vigente. |
-| **FLUJO PRINCIPAL** | 1. El administrador elige la autorización (desde CU35).<br>2. Ingresa el motivo.<br>3. El sistema la marca como cancelada; desde ese momento no habilita ingresos. |
-| **FLUJO ALTERNATIVO** | 3a. La visita está adentro del barrio en ese momento: se cancela igual, pero el sistema avisa que todavía tiene que registrarse su salida (CU41). |
-
 ### CU37 - Gestionar permiso de autorizaciones
 
 | **NOMBRE:** | **Gestionar permiso de autorizaciones** |
@@ -441,7 +408,7 @@ En el diagrama, los casos que dicen "(sistema)" no se conectan con ningún actor
 | **ACTOR/ES** | Administrador (extiende CU37) |
 | **PRECONDICIONES** | El residente tiene permiso para autorizar visitas. |
 | **FLUJO PRINCIPAL** | 1. El administrador elige "Quitar permiso".<br>2. El sistema le saca al residente el permiso para autorizar visitas.<br>3. Las autorizaciones que ya había dado siguen vigentes. |
-| **FLUJO ALTERNATIVO** | 3a. El administrador elige también cancelar las autorizaciones que dio ese residente: se cancelan una por una (CU36). |
+| **FLUJO ALTERNATIVO** | — |
 
 ### CU39 - Guardar ingreso
 

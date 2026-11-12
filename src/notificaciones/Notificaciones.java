@@ -3,8 +3,9 @@ package notificaciones;
 import Enums.TipoNotificacion;
 
 import java.time.LocalDateTime;
+import java.io.Serializable;
 
-public class Notificaciones {
+public class Notificaciones implements Serializable {
     private LocalDateTime fechaHora;
     private Enums.TipoNotificacion tipo;
     private String mensajes;

@@ -5,8 +5,9 @@ import personal.EmpleadosDeMantenimiento;
 import Enums.Prioridad;
 
 import java.time.LocalDate;
+import java.io.Serializable;
 
-public class OrdenesDeMantenimiento {
+public class OrdenesDeMantenimiento implements Serializable {
     private int numero;
     private LocalDate fechaApertura;
     private Enums.Prioridad prioridad;

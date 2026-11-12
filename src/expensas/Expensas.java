@@ -8,8 +8,9 @@ import java.time.YearMonth;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 
-public class Expensas {
+public class Expensas implements Serializable {
     private YearMonth periodo;
     private double importe;
     private LocalDate vencimiento;
@@ -133,6 +134,9 @@ public class Expensas {
         pagos.add(p);
         interesesPagados = interesesPagados + aInteres;
         saldoCapital = saldoCapital- aCapital;
+        if (saldoCapital < 0.01) { // para que no quede una deuda de fracciones de centavo por el redondeo de los double
+            saldoCapital = 0;
+        }
         actualizarEstado();
         return p;
     }

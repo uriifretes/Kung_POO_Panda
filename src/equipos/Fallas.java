@@ -2,8 +2,9 @@ package equipos;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.io.Serializable;
 
-public class Fallas {
+public class Fallas implements Serializable {
     private LocalDateTime fechaHora;
     private String descripcion;
     private String reportadaPor;

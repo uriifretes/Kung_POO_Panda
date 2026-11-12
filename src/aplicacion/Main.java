@@ -1,17 +1,30 @@
 package aplicacion;
 
 import controladores.ControladorGeneral;
+import persistencia.ArchivoDatos;
 import vistas.Consola;
 import vistas.VistaPrincipal;
 
 public class Main {
 
     public static void main(String[] args) {
-        ControladorGeneral general = new ControladorGeneral();
+        ArchivoDatos archivo = new ArchivoDatos("datos_aromos.dat");
+        ControladorGeneral general = null;
 
-        if (Consola.leerSiNo("Desea cargar datos de ejemplo?")) {
-            DatosDePrueba.cargar(general);
-            System.out.println("Datos de ejemplo cargados (administrador legajo 1, guardia porteria 10, empleado 20, lotes 1 a 3).");
+        // Si hay datos de una ejecucion anterior, se siguen usando
+        if (archivo.existe()) {
+            general = archivo.cargar();
+            if (general != null) {
+                System.out.println("Se cargaron los datos guardados.");
+            }
+        }
+
+        if (general == null) {
+            general = new ControladorGeneral();
+            if (Consola.leerSiNo("Desea cargar datos de ejemplo?")) {
+                DatosDePrueba.cargar(general);
+                System.out.println("Datos de ejemplo cargados (los usuarios de prueba estan en el README).");
+            }
         }
 
         // S03: los controles que dependen del tiempo tambien corren al iniciar
@@ -22,5 +35,8 @@ public class Main {
         }
 
         new VistaPrincipal(general).iniciar();
+
+        // Al salir se guarda todo para la proxima ejecucion
+        archivo.guardar(general);
     }
 }

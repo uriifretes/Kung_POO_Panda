@@ -12,3 +12,6 @@ target/
 # Sistema operativo
 .DS_Store
 Thumbs.db
+
+# Datos que guarda el programa al salir
+datos_aromos.dat

@@ -7,8 +7,9 @@ import personas.Titular;
 import reclamos.PedidosVecinos;
 
 import java.util.*;
+import java.io.Serializable;
 
-public class Lotes {
+public class Lotes implements Serializable {
     private int numero;
     private double superficie;
     private Titular titular;

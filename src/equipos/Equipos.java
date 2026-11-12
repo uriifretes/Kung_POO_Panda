@@ -9,8 +9,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 
-public abstract class Equipos {
+public abstract class Equipos implements Serializable {
     private String codigo;
     private LocalDate fechaInstalacion;
     private Enums.EstadoEquipo estado;

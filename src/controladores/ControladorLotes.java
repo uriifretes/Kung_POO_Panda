@@ -9,8 +9,9 @@ import Enums.TipoResidente;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 
-public class ControladorLotes {
+public class ControladorLotes implements Serializable {
     private List<Lotes> lotes;
 
     public ControladorLotes(){

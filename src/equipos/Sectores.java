@@ -4,8 +4,9 @@ import Enums.TipoSector;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 
-public class Sectores {
+public class Sectores implements Serializable {
     private String nombre;
     private Enums.TipoSector tipo;
     private List<Equipos> equipos;
