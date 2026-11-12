@@ -7,10 +7,9 @@ import personas.Personas;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Menu del titular y del residente. Comparten casi todo: el titular ademas
- * gestiona a los residentes de su lote y recibe notificaciones.
- */
+//Menu del titular y del residente. Comparten casi todo pero titular
+// gestiona a los residentes de su lote y recibe notificaciones.
+
 public class MenuVecino {
     private ControladorGeneral general;
     private boolean esTitular;
@@ -161,7 +160,7 @@ public class MenuVecino {
         }
     }
 
-    /** Una persona puede ser titular de varios lotes: si pasa, elige con cual trabajar. */
+    // Una persona puede ser titular de varios lotes: si pasa, elige con cual trabajar.
     private Lotes elegirLote(String doc) {
         List<Lotes> propios = new ArrayList<>();
         List<Lotes> todos = general.getLotes().getLotes();

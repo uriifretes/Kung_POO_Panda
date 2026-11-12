@@ -21,7 +21,6 @@ public class VistaReclamos {
         this.controlador = controlador;
     }
 
-    // ---------- Alta ----------
 
     public void presentarReclamo(int nLote, String doc) {
         Consola.titulo("Presentar reclamo");
@@ -47,7 +46,7 @@ public class VistaReclamos {
         }
     }
 
-    /** Una apelacion de deuda es una solicitud de tipo ADMINISTRATIVO (S31). */
+    // Una apelacion de deuda es una solicitud de tipo ADMINISTRATIVO
     public void apelarDeuda(int nLote, String doc) {
         Consola.titulo("Apelar una deuda");
         try {
@@ -59,7 +58,7 @@ public class VistaReclamos {
         }
     }
 
-    // ---------- Consultas ----------
+    // Consultas
 
     public void listarTodos() {
         Consola.titulo("Todos los reclamos y solicitudes");
@@ -91,7 +90,7 @@ public class VistaReclamos {
         mostrarLista(filtrados);
     }
 
-    /** nLote y legajo en 0 significan "sin restriccion" (lo usa el administrador). */
+    // nLote y legajo en 0 significan sin restriccion o sea lo usa el administrador
     public void verDetalle(int nLote, int legajo) {
         try {
             PedidosVecinos p = pedirPedido(nLote, legajo);
@@ -123,7 +122,7 @@ public class VistaReclamos {
         }
     }
 
-    // ---------- Gestion ----------
+    // Gestion
 
     public void asignar() {
         Consola.titulo("Asignar pedido");
@@ -189,7 +188,7 @@ public class VistaReclamos {
         System.out.println(controlador.reportePendientes());
     }
 
-    // ---------- Auxiliares privados ----------
+    // Auxiliares privados
 
     private PedidosVecinos pedirPedido(int nLote, int legajo) {
         int numero = Consola.leerEntero("Numero de pedido");
