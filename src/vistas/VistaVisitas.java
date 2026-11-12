@@ -142,9 +142,7 @@ public class VistaVisitas {
                     + " al " + r.getFechaHasta().format(Consola.FORMATO_FECHA);
         }
         String estado;
-        if (a.isCancelada()) {
-            estado = "CANCELADA";
-        } else if (a.estaVigente(LocalDateTime.now())) {
+        if (a.estaVigente(LocalDateTime.now())) {
             estado = "VIGENTE AHORA";
         } else {
             estado = "no vigente ahora";

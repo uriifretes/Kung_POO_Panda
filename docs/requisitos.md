@@ -120,8 +120,6 @@ S32 - Para disminuir intereses se registra un asiento de ajuste negativo sobre l
 
 S33 - En los pagos con tarjeta se registra el número de operación del posnet. No se guardan datos de la tarjeta.
 
-S34 - Una autorización cancelada por el administrador deja de habilitar ingresos.
-
 S35 - Las notificaciones se marcan como leídas cuando el destinatario las abre.
 
 S36 - Las solicitudes (pedidos) y los reclamos (quejas) usan la misma clase y el mismo circuito de estados. Se distinguen con un atributo. Las solicitudes las cierra el administrador cuando están resueltas, sin esperar los 5 días, y no se pueden reabrir.

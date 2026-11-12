@@ -26,9 +26,6 @@ public class AutorizacionesUnicas extends Autorizaciones{
 
     @Override
     public boolean estaVigente(LocalDateTime momento){
-        if(isCancelada()){
-            return false;
-        }
         if (momento.toLocalDate().equals(fecha)){
             return dentrodeFranja(momento.toLocalTime());
         }

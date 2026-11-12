@@ -13,7 +13,6 @@ import java.util.List;
 public abstract class Autorizaciones {
     private LocalTime horaDesde;
     private LocalTime horaHasta;
-    private boolean cancelada;
     private Visitantes visitante;
     private List<Ingresos> ingresos;
 
@@ -22,7 +21,6 @@ public abstract class Autorizaciones {
             throw new IllegalArgumentException("Has ingresado datos invalidos");
         }
         this.visitante = visitante;
-        this.cancelada = false;
         this.horaHasta = horaHasta;
         this.horaDesde = horaDesde;
         this.ingresos = new ArrayList<>();
@@ -38,9 +36,6 @@ public abstract class Autorizaciones {
         return horaHasta;
     }
 
-    public boolean isCancelada() {
-        return cancelada;
-    }
 
     public Visitantes getVisitante() {
         return visitante;
@@ -63,10 +58,6 @@ public abstract class Autorizaciones {
         else {
             return false;
         }
-    }
-
-    public void cancelar(){
-        cancelada= true;
     }
 
     public boolean tieneIngresoAbierto(){

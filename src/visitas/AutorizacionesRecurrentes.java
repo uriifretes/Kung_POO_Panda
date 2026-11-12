@@ -39,9 +39,6 @@ public class AutorizacionesRecurrentes extends Autorizaciones {
 
     @Override
     public boolean estaVigente(LocalDateTime momento) {
-        if (isCancelada()){
-            return false;
-        }
         if (momento.toLocalDate().isBefore(fechaDesde)|| momento.toLocalDate().isAfter(fechaHasta)){
             return false;
         }
