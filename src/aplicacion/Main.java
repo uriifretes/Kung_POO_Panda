@@ -11,7 +11,6 @@ public class Main {
         ArchivoDatos archivo = new ArchivoDatos("datos_aromos.dat");
         ControladorGeneral general = null;
 
-        // Si hay datos de una ejecucion anterior, se siguen usando
         if (archivo.existe()) {
             general = archivo.cargar();
             if (general != null) {
@@ -36,7 +35,6 @@ public class Main {
 
         new VistaPrincipal(general).iniciar();
 
-        // Al salir se guarda todo para la proxima ejecucion
         archivo.guardar(general);
     }
 }
