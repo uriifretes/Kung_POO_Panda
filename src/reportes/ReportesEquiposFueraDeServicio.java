@@ -4,6 +4,7 @@ import equipos.Equipos;
 
 import Enums.EstadoEquipo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ReportesEquiposFueraDeServicio implements Reportes {
@@ -13,7 +14,7 @@ public class ReportesEquiposFueraDeServicio implements Reportes {
         if (equipos==null){
             throw new IllegalArgumentException("Has ingresado datos invalidos");
         }
-        this.equipos = equipos;
+        this.equipos = new ArrayList<>(equipos);
     }
     @Override
     public String generar() {
