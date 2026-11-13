@@ -6,6 +6,7 @@ Cambios en el diagrama de clases respecto del final de la etapa 1
 - PedidosVecinos reemplaza debeCerrarse() y cerrar() por cerrarsiVencio(ahora)
 - PedidosVecinos suma cambiarEstado()
 - PedidosVecinos suma los métodos abstractos puedeReabrirse() y seCierraSolo(). Reclamos los sobrescribe devolviendo true y Solicitud devolviendo false: el reclamo se puede reabrir y se cierra solo a los 5 días, la solicitud no.
+- También agregamos puedeReabrirse() y seCierraSolo() en el código, pero no están en el diagrama de clases de la etapa 2: se nos ocurrió el cambio a último momento y no tuvimos tiempo de actualizar el diagrama.
 - Personal: se saca verReclamosAsignados().
 - Lotes: se saca calcularCoeficiente().
 - Lotes suma buscarResidente(documento) y puedeAutorizarVisitas(p)
