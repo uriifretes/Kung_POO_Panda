@@ -123,6 +123,10 @@ public abstract class PedidosVecinos implements Comparable<PedidosVecinos>, Seri
         return fechaHora.compareTo(otro.getFechaHora());
     }
 
+    public abstract boolean puedeReabrirse();
+
+    public abstract boolean seCierraSolo();
+
     private void cambiarEstado(EstadoReclamo nuevo, LocalDateTime momento, String observacion){
         estado = nuevo;
         historial.add(new CambiosDeEstado(momento, observacion, nuevo));
@@ -172,6 +176,9 @@ public abstract class PedidosVecinos implements Comparable<PedidosVecinos>, Seri
     }
 
     public void reabrir(LocalDateTime momento) throws TransicionInvalidaException{
+        if (!puedeReabrirse()){
+            throw new TransicionInvalidaException("Las solicitudes no se pueden reabrir");
+        }
         if (estado!= EstadoReclamo.RESUELTO){
             throw new TransicionInvalidaException("El reclamo no esta resuelto, no tiene sentido que se reabra");
         }
@@ -184,7 +191,7 @@ public abstract class PedidosVecinos implements Comparable<PedidosVecinos>, Seri
 
 
     public boolean cerrarsiVencio(LocalDateTime ahora){
-        if (estado != EstadoReclamo.RESUELTO) {
+        if (!seCierraSolo() || estado != EstadoReclamo.RESUELTO) {
             return false;
         }
         long dias = ChronoUnit.DAYS.between(fechaResolucion, ahora);

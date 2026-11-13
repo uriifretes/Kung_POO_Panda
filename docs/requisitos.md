@@ -121,3 +121,5 @@ S32 - Para disminuir intereses se registra un asiento de ajuste negativo sobre l
 S33 - En los pagos con tarjeta se registra el número de operación del posnet. No se guardan datos de la tarjeta.
 
 S35 - Las notificaciones se marcan como leídas cuando el destinatario las abre.
+
+S37 - Un reclamo se puede reabrir hasta 5 días después de resuelto y, si nadie lo reabre, se cierra solo. Una solicitud no se reabre ni se cierra sola: la cierra el administrador.

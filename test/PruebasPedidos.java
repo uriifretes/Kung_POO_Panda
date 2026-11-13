@@ -25,7 +25,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class PruebasPedidos {
-    private static final LocalDateTime BASE = LocalDateTime.of(2026, 11, 1, 10, 0);
+    private static final LocalDateTime TIEMPO = LocalDateTime.of(2026, 11, 1, 10, 0);
 
     public static void main(String[] args) {
         System.out.println("==== Pruebas de pedidos ====");
@@ -39,6 +39,7 @@ public class PruebasPedidos {
         probarReabrirDentroDelPlazo();
         probarReabrirFueraDelPlazo();
         probarCierreAutomatico();
+        probarSolicitudNoSeReabreNiSeCierraSola();
         probarEscalamiento();
         probarCancelar();
         probarOrdenPorFechaYPorPrioridad();
@@ -56,7 +57,7 @@ public class PruebasPedidos {
     private static void probarPedidoNuevo() {
         Titular t = titular();
         Lotes lote = new Lotes(1, 500, t);
-        PedidosVecinos p = new Reclamos(1, BASE, TipoReclamo.MANTENIMIENTO, "Luz quemada", lote, t);
+        PedidosVecinos p = new Reclamos(1, TIEMPO, TipoReclamo.MANTENIMIENTO, "Luz quemada", lote, t);
         Verificar.igual("Pedido nuevo: estado ABIERTO", EstadoReclamo.ABIERTO, p.getEstado());
         Verificar.igual("Pedido nuevo: historial con 1 cambio", 1, p.getHistorial().size());
         Verificar.igual("Pedido nuevo: MANTENIMIENTO es prioridad MEDIA", Prioridad.MEDIA, p.getPrioridad());
@@ -68,7 +69,7 @@ public class PruebasPedidos {
         Residentes r = new Residentes("Sofia", "Diaz", "40333444", "1155550008", "sofia@mail.com", TipoResidente.INQUILINO);
         lote.agregarResidente(r);
         try {
-            new Solicitud(1, BASE, TipoReclamo.MANTENIMIENTO, "Podar el arbol", lote, r);
+            new Solicitud(1, TIEMPO, TipoReclamo.MANTENIMIENTO, "Podar el arbol", lote, r);
             Verificar.falla("Residente sin permiso no presenta pedidos", "no lanzo excepcion");
         } catch (IllegalArgumentException e) {
             Verificar.ok("Residente sin permiso no presenta pedidos");
@@ -79,9 +80,9 @@ public class PruebasPedidos {
         Titular t = titular();
         Lotes lote = new Lotes(1, 500, t);
         EmpleadosDeMantenimiento e = empleado();
-        PedidosVecinos p = new Reclamos(1, BASE, TipoReclamo.MANTENIMIENTO, "Luz quemada", lote, t);
+        PedidosVecinos p = new Reclamos(1, TIEMPO, TipoReclamo.MANTENIMIENTO, "Luz quemada", lote, t);
         try {
-            p.asignar(e, BASE.plusHours(1));
+            p.asignar(e, TIEMPO.plusHours(1));
             Verificar.igual("Asignar a empleado: estado ASIGNADO", EstadoReclamo.ASIGNADO, p.getEstado());
             Verificar.verdadero("Asignar a empleado: queda como responsable", p.getResponsable() == e);
         } catch (TransicionInvalidaException | LimiteReclamosException ex) {
@@ -93,9 +94,9 @@ public class PruebasPedidos {
         Titular t = titular();
         Lotes lote = new Lotes(1, 500, t);
         GuardiasDeSeguridad g = new GuardiasDeSeguridad(10, "Carlos Perez", LocalDate.of(2021, 5, 10), Turno.MANIANA, PuestoGuardia.PORTERIA);
-        PedidosVecinos p = new Reclamos(1, BASE, TipoReclamo.MANTENIMIENTO, "Luz quemada", lote, t);
+        PedidosVecinos p = new Reclamos(1, TIEMPO, TipoReclamo.MANTENIMIENTO, "Luz quemada", lote, t);
         try {
-            p.asignar(g, BASE.plusHours(1));
+            p.asignar(g, TIEMPO.plusHours(1));
             Verificar.falla("Guardia no atiende MANTENIMIENTO", "no lanzo excepcion");
         } catch (IllegalArgumentException e) {
             Verificar.ok("Guardia no atiende MANTENIMIENTO");
@@ -108,10 +109,10 @@ public class PruebasPedidos {
         Titular t = titular();
         Lotes lote = new Lotes(1, 500, t);
         EmpleadosDeMantenimiento e = empleado();
-        PedidosVecinos p = new Reclamos(1, BASE, TipoReclamo.MANTENIMIENTO, "Luz quemada", lote, t);
+        PedidosVecinos p = new Reclamos(1, TIEMPO, TipoReclamo.MANTENIMIENTO, "Luz quemada", lote, t);
         try {
-            p.asignar(e, BASE.plusHours(1));
-            p.asignar(e, BASE.plusHours(2));
+            p.asignar(e, TIEMPO.plusHours(1));
+            p.asignar(e, TIEMPO.plusHours(2));
             Verificar.falla("No se asigna un pedido que no esta ABIERTO", "no lanzo excepcion");
         } catch (TransicionInvalidaException ex) {
             Verificar.ok("No se asigna un pedido que no esta ABIERTO");
@@ -126,13 +127,13 @@ public class PruebasPedidos {
         EmpleadosDeMantenimiento e = empleado();
         try {
             for (int i = 1; i <= 5; i++) {
-                PedidosVecinos p = new Reclamos(i, BASE, TipoReclamo.MANTENIMIENTO, "Pedido " + i, lote, t);
-                p.asignar(e, BASE.plusHours(1));
-                p.avanzar(BASE.plusHours(2), "Trabajando");
+                PedidosVecinos p = new Reclamos(i, TIEMPO, TipoReclamo.MANTENIMIENTO, "Pedido " + i, lote, t);
+                p.asignar(e, TIEMPO.plusHours(1));
+                p.avanzar(TIEMPO.plusHours(2), "Trabajando");
             }
             Verificar.igual("Limite: el empleado tiene 5 en curso", 5, e.cantidadenCurso());
-            PedidosVecinos sexto = new Reclamos(6, BASE, TipoReclamo.MANTENIMIENTO, "Pedido 6", lote, t);
-            sexto.asignar(e, BASE.plusHours(3));
+            PedidosVecinos sexto = new Reclamos(6, TIEMPO, TipoReclamo.MANTENIMIENTO, "Pedido 6", lote, t);
+            sexto.asignar(e, TIEMPO.plusHours(3));
             Verificar.falla("Limite de 5 pedidos en curso", "no lanzo excepcion");
         } catch (LimiteReclamosException ex) {
             Verificar.ok("Limite de 5 pedidos en curso");
@@ -144,12 +145,12 @@ public class PruebasPedidos {
     private static void probarAvanzarHastaResuelto() {
         Titular t = titular();
         Lotes lote = new Lotes(1, 500, t);
-        PedidosVecinos p = new Reclamos(1, BASE, TipoReclamo.MANTENIMIENTO, "Luz quemada", lote, t);
+        PedidosVecinos p = new Reclamos(1, TIEMPO, TipoReclamo.MANTENIMIENTO, "Luz quemada", lote, t);
         try {
-            p.asignar(empleado(), BASE.plusHours(1));
-            p.avanzar(BASE.plusHours(2), "Empezo el arreglo");
+            p.asignar(empleado(), TIEMPO.plusHours(1));
+            p.avanzar(TIEMPO.plusHours(2), "Empezo el arreglo");
             Verificar.igual("Avanzar: ASIGNADO pasa a EN_CURSO", EstadoReclamo.EN_CURSO, p.getEstado());
-            p.avanzar(BASE.plusHours(5), "Lampara cambiada");
+            p.avanzar(TIEMPO.plusHours(5), "Lampara cambiada");
             Verificar.igual("Avanzar: EN_CURSO pasa a RESUELTO", EstadoReclamo.RESUELTO, p.getEstado());
             Verificar.igual("Avanzar: el historial guarda los 4 cambios", 4, p.getHistorial().size());
         } catch (TransicionInvalidaException | LimiteReclamosException ex) {
@@ -160,17 +161,17 @@ public class PruebasPedidos {
     private static PedidosVecinos pedidoResuelto(LocalDateTime resuelto) throws TransicionInvalidaException, LimiteReclamosException {
         Titular t = titular();
         Lotes lote = new Lotes(1, 500, t);
-        PedidosVecinos p = new Reclamos(1, BASE, TipoReclamo.MANTENIMIENTO, "Luz quemada", lote, t);
-        p.asignar(empleado(), BASE.plusHours(1));
-        p.avanzar(BASE.plusHours(2), "Empezo el arreglo");
+        PedidosVecinos p = new Reclamos(1, TIEMPO, TipoReclamo.MANTENIMIENTO, "Luz quemada", lote, t);
+        p.asignar(empleado(), TIEMPO.plusHours(1));
+        p.avanzar(TIEMPO.plusHours(2), "Empezo el arreglo");
         p.avanzar(resuelto, "Lampara cambiada");
         return p;
     }
 
     private static void probarReabrirDentroDelPlazo() {
         try {
-            PedidosVecinos p = pedidoResuelto(BASE.plusDays(1));
-            p.reabrir(BASE.plusDays(4));
+            PedidosVecinos p = pedidoResuelto(TIEMPO.plusDays(1));
+            p.reabrir(TIEMPO.plusDays(4));
             Verificar.igual("Reabrir a los 3 dias de resuelto: vuelve a EN_CURSO", EstadoReclamo.EN_CURSO, p.getEstado());
         } catch (TransicionInvalidaException | LimiteReclamosException ex) {
             Verificar.falla("Reabrir dentro del plazo", ex.getMessage());
@@ -179,8 +180,8 @@ public class PruebasPedidos {
 
     private static void probarReabrirFueraDelPlazo() {
         try {
-            PedidosVecinos p = pedidoResuelto(BASE.plusDays(1));
-            p.reabrir(BASE.plusDays(8));
+            PedidosVecinos p = pedidoResuelto(TIEMPO.plusDays(1));
+            p.reabrir(TIEMPO.plusDays(8));
             Verificar.falla("No se reabre despues de 5 dias", "no lanzo excepcion");
         } catch (TransicionInvalidaException ex) {
             Verificar.ok("No se reabre despues de 5 dias");
@@ -189,11 +190,29 @@ public class PruebasPedidos {
         }
     }
 
+    private static void probarSolicitudNoSeReabreNiSeCierraSola() {
+        Titular t = titular();
+        Lotes lote = new Lotes(1, 500, t);
+        PedidosVecinos s = new Solicitud(1, TIEMPO, TipoReclamo.MANTENIMIENTO, "Podar el arbol", lote, t);
+        try {
+            s.asignar(empleado(), TIEMPO.plusHours(1));
+            s.avanzar(TIEMPO.plusHours(2), "Empezo el trabajo");
+            s.avanzar(TIEMPO.plusDays(1), "Arbol podado");
+            Verificar.verdadero("Solicitud: a los 6 dias de resuelta no se cierra sola", !s.cerrarsiVencio(TIEMPO.plusDays(7)));
+            s.reabrir(TIEMPO.plusDays(2));
+            Verificar.falla("Una solicitud no se reabre", "no lanzo excepcion");
+        } catch (TransicionInvalidaException ex) {
+            Verificar.ok("Una solicitud no se reabre");
+        } catch (LimiteReclamosException ex) {
+            Verificar.falla("Una solicitud no se reabre", ex.getMessage());
+        }
+    }
+
     private static void probarCierreAutomatico() {
         try {
-            PedidosVecinos p = pedidoResuelto(BASE.plusDays(1));
-            Verificar.verdadero("A los 3 dias de resuelto no se cierra solo", !p.cerrarsiVencio(BASE.plusDays(4)));
-            Verificar.verdadero("A los 6 dias de resuelto se cierra solo", p.cerrarsiVencio(BASE.plusDays(7)));
+            PedidosVecinos p = pedidoResuelto(TIEMPO.plusDays(1));
+            Verificar.verdadero("A los 3 dias de resuelto no se cierra solo", !p.cerrarsiVencio(TIEMPO.plusDays(4)));
+            Verificar.verdadero("A los 6 dias de resuelto se cierra solo", p.cerrarsiVencio(TIEMPO.plusDays(7)));
             Verificar.igual("Cierre automatico: queda CERRADO", EstadoReclamo.CERRADO, p.getEstado());
         } catch (TransicionInvalidaException | LimiteReclamosException ex) {
             Verificar.falla("Cierre automatico", ex.getMessage());
@@ -203,22 +222,22 @@ public class PruebasPedidos {
         Titular t = titular();
         Lotes lote = new Lotes(1, 500, t);
         Administrador admin = new Administrador(1, "Marta Gomez", LocalDate.of(2020, 3, 1));
-        PedidosVecinos p = new Reclamos(1, BASE, TipoReclamo.SEGURIDAD, "Porton abierto", lote, t);
-        Verificar.verdadero("A las 10 horas no se escala", !p.escalarPortiempo(BASE.plusHours(10), admin));
-        Verificar.verdadero("A las 25 horas se escala", p.escalarPortiempo(BASE.plusHours(25), admin));
+        PedidosVecinos p = new Reclamos(1, TIEMPO, TipoReclamo.SEGURIDAD, "Porton abierto", lote, t);
+        Verificar.verdadero("A las 10 horas no se escala", !p.escalarPortiempo(TIEMPO.plusHours(10), admin));
+        Verificar.verdadero("A las 25 horas se escala", p.escalarPortiempo(TIEMPO.plusHours(25), admin));
         Verificar.verdadero("Escalamiento: queda marcado", p.isEscalado());
-        Verificar.verdadero("La segunda vez ya no se escala", !p.escalarPortiempo(BASE.plusHours(30), admin));
+        Verificar.verdadero("La segunda vez ya no se escala", !p.escalarPortiempo(TIEMPO.plusHours(30), admin));
         Verificar.igual("Escalamiento: el admin recibe una sola notificacion", 1, admin.verNotificaciones().size());
     }
 
     private static void probarCancelar() {
         Titular t = titular();
         Lotes lote = new Lotes(1, 500, t);
-        PedidosVecinos p = new Solicitud(1, BASE, TipoReclamo.MANTENIMIENTO, "Podar el arbol", lote, t);
+        PedidosVecinos p = new Solicitud(1, TIEMPO, TipoReclamo.MANTENIMIENTO, "Podar el arbol", lote, t);
         try {
-            p.cancelar(BASE.plusHours(1));
+            p.cancelar(TIEMPO.plusHours(1));
             Verificar.igual("Cancelar un pedido ABIERTO lo deja CERRADO", EstadoReclamo.CERRADO, p.getEstado());
-            p.cancelar(BASE.plusHours(2));
+            p.cancelar(TIEMPO.plusHours(2));
             Verificar.falla("No se cancela un pedido CERRADO", "no lanzo excepcion");
         } catch (TransicionInvalidaException ex) {
             Verificar.ok("No se cancela un pedido CERRADO");

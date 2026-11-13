@@ -43,11 +43,11 @@ Están en la carpeta `test`, en Java puro: cada clase tiene un `main` que crea l
 
 | Clase | Qué prueba | Pruebas |
 | --- | --- | --- |
-| `PruebasPedidos` | Estados, asignación, límite de 5 en curso, reabrir, cierre automático, escalamiento, cancelar, orden con Comparable y Comparator | 27 |
+| `PruebasPedidos` | Estados, asignación, límite de 5 en curso, reabrir, cierre automático, solicitud que no se reabre ni se cierra sola, escalamiento, cancelar, orden con Comparable y Comparator | 29 |
 | `PruebasExpensas` | Intereses, pagos (primero intereses y después capital), saldo a favor, morosidad, emisión según superficie, número de operación, asientos de ajuste | 27 |
 | `PruebasEquipos` | Prioridad de cámaras y luminarias, falla, orden, cierre, equipo dado de baja, aviso de cámara a las 48 horas | 12 |
 | `PruebasVisitas` | Vigencia de autorizaciones únicas y recurrentes, ingreso, salida, ingreso duplicado, guardia de ronda | 13 |
 
-`PruebasTodas` corre las cuatro seguidas. Resultado: **79 de 79 pruebas pasaron.**
+`PruebasTodas` corre las cuatro seguidas. Resultado: **81 de 81 pruebas pasaron.**
 
 Una de las pruebas (`probarPagoTotalConDecimales`) encontró un error: al pagar el total de una expensa con un importe con muchos decimales, quedaba un saldo de fracciones de centavo y la expensa seguía como PARCIAL. Se corrigió en `Expensas.registrarPago()`.

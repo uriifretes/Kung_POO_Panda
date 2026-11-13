@@ -107,7 +107,7 @@ public class DatosDePrueba {
             g.getReclamos().asignar(4, 21);
             g.getReclamos().avanzar(4, "El plomero empezo el arreglo");
             g.getReclamos().comentar(4, "Raul Soto", "Falta un repuesto, se termina manana");
-            g.getReclamos().crearSolicitud(4, "40777888", TipoReclamo.ADMINISTRATIVO, "Pedido de copia del reglamento");
+            g.getReclamos().crearReclamo(4, "40777888", TipoReclamo.ADMINISTRATIVO, "Error en el resumen de la expensa del mes");
             g.getReclamos().asignar(5, 1);
             g.getReclamos().avanzar(5, "En revision");
             g.getReclamos().avanzar(5, "Se envio por mail");

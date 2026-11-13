@@ -5,7 +5,7 @@ Cambios en el diagrama de clases respecto del final de la etapa 1
 - PedidosVecinos reemplaza debeEscalarse() y marcarEscalado() por escalarPortiempo(ahora, admin)
 - PedidosVecinos reemplaza debeCerrarse() y cerrar() por cerrarsiVencio(ahora)
 - PedidosVecinos suma cambiarEstado()
-- Se saca puedeReabrirse() de PedidosVecinos, Reclamos y Solicitud.
+- PedidosVecinos suma los métodos abstractos puedeReabrirse() y seCierraSolo(). Reclamos los sobrescribe devolviendo true y Solicitud devolviendo false: el reclamo se puede reabrir y se cierra solo a los 5 días, la solicitud no.
 - Personal: se saca verReclamosAsignados().
 - Lotes: se saca calcularCoeficiente().
 - Lotes suma buscarResidente(documento) y puedeAutorizarVisitas(p)

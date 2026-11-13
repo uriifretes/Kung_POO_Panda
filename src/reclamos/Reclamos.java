@@ -12,4 +12,14 @@ public class Reclamos extends PedidosVecinos{
     public Reclamos(int numero, LocalDateTime fechaHora, TipoReclamo tipo, String descripcion, Lotes lote, Personas presentado) {
         super(numero, fechaHora, tipo, descripcion, lote, presentado);
     }
+
+    @Override
+    public boolean puedeReabrirse(){
+        return true;
+    }
+
+    @Override
+    public boolean seCierraSolo(){
+        return true;
+    }
 }

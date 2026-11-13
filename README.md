@@ -101,7 +101,7 @@ Se cargan al responder «s» a «Desea cargar datos de ejemplo?». Al entrar, ca
 - Nro 2: solicitud de mantenimiento del lote 1, ABIERTO (sirve para asignarla al legajo 20).
 - Nro 3: reclamo de convivencia del lote 2, ASIGNADO al guardia 10.
 - Nro 4: reclamo de mantenimiento del lote 3, EN_CURSO con el empleado 21.
-- Nro 5: solicitud administrativa del lote 4, RESUELTO (se puede reabrir).
+- Nro 5: reclamo administrativo del lote 4, RESUELTO (se puede reabrir).
 - Nro 6: reclamo de seguridad del lote 5, CERRADO.
 - Nro 7: solicitud de mantenimiento del lote 2, cancelada.
 
