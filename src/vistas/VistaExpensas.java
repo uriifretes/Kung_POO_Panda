@@ -78,8 +78,7 @@ public class VistaExpensas {
     public void consultarDeuda(int nLote) {
         try {
             double deuda = controlador.consultarDeuda(nLote, LocalDate.now());
-            System.out.println("Deuda total del lote " + nLote + " a hoy: " + Consola.dinero(deuda)
-                    + " (negativo = saldo a favor)");
+            System.out.println("Deuda total del lote " + nLote + " a hoy: " + Consola.dinero(deuda)  + " (negativo = saldo a favor)");
         } catch (IllegalArgumentException e) {
             Consola.error(e);
         }

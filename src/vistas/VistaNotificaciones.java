@@ -7,7 +7,7 @@ import java.util.List;
 
 public class VistaNotificaciones {
 
-    /** Muestra las notificaciones (las mas nuevas primero) y las marca como leidas (S35). */
+    // Muestra las notificaciones (las mas nuevas primero) y las marca como leidas
     public void mostrar(Notificable destinatario) {
         Consola.titulo("Notificaciones");
         List<Notificaciones> lista = destinatario.verNotificaciones();

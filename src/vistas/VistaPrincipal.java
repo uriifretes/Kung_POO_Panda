@@ -2,7 +2,7 @@ package vistas;
 
 import controladores.ControladorGeneral;
 
-/** Pantalla de inicio: pregunta con que rol se trabaja (S01) y deriva al menu correspondiente. */
+// Pantalla de inicio
 public class VistaPrincipal {
     private ControladorGeneral general;
 
