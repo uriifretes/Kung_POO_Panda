@@ -2,7 +2,9 @@ package vistas;
 
 import controladores.ControladorGeneral;
 
-/** Visitantes y proveedores solo pueden consultar sus autorizaciones (S23). */
+
+//Visitantes y proveedores solo pueden consultar sus autorizaciones
+
 public class MenuVisitante {
     private VistaVisitas vistaVisitas;
 

@@ -82,7 +82,7 @@ public class VistaEquipos {
         }
     }
 
-    /** legajoTecnico en 0 significa que el administrador elige quien cerro la orden. */
+    // legajoTecnico en 0 significa que el administrador elige quien cerro la orden.
     public void cerrarOrden(int legajoTecnico) {
         Consola.titulo("Cerrar orden de mantenimiento");
         try {
@@ -143,9 +143,8 @@ public class VistaEquipos {
         System.out.println(controlador.reporteFueraDeServ());
     }
 
-    // ---------- Auxiliares privados ----------
 
-    /** Equipos no expone la lista de ordenes, pero si buscarOrden(n): se recorre 1, 2, 3... hasta que devuelva null. */
+    // Equipos no expone la lista de ordenes, pero si buscarOrden(n): se recorre hasta que devuelva null.
     private void mostrarOrdenes(Equipos e) {
         int n = 1;
         while (e.buscarOrden(n) != null) {

@@ -78,7 +78,7 @@ public class MenuAdministrador {
         }
     }
 
-    /** Si todavia no hay administrador, deja registrar el primero (S04). */
+    // Si no hay administrador registra el primero
     private Administrador identificar() {
         try {
             general.getPersonal().getAdmin();

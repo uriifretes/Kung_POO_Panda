@@ -5,7 +5,6 @@ import lotes.Lotes;
 import personas.Residentes;
 
 import Enums.TipoResidente;
-
 import java.util.List;
 
 public class VistaLotes {
@@ -54,7 +53,7 @@ public class VistaLotes {
         agregarResidente(nLote);
     }
 
-    /** El titular marca si un residente de su lote puede presentar reclamos (S29). */
+    // El titular marca si un residente de su lote puede presentar reclamos
     public void autorizarReclamos(int nLote) {
         Consola.titulo("Autorizar reclamos a un residente");
         try {
@@ -67,7 +66,7 @@ public class VistaLotes {
         }
     }
 
-    /** El administrador habilita a un residente a autorizar visitas (S30). */
+    // El administrador habilita a un residente a autorizar visitas
     public void habilitarVisitas() {
         Consola.titulo("Habilitar a un residente a autorizar visitas");
         try {
