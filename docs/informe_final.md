@@ -14,7 +14,9 @@ Durante la codificación nos apartamos del diseño de la etapa 1 en varios punto
 - **Supuestos.** Sacamos la cancelación de autorizaciones de visita (S34) y el supuesto S36, porque no coincidían con el código. También ajustamos S15 y S32: el asiento de ajuste ya no queda asociado a un pago.
 - **Persistencia.** Agregamos la clase ArchivoDatos (paquete persistencia), que guarda y carga todo el sistema en un único archivo binario, datos_aromos.dat, usando serialización de Java (ObjectOutputStream / ObjectInputStream). Como ControladorGeneral contiene a todos los controladores y estos al modelo completo, alcanza con guardar ese único objeto. Para eso, las clases del modelo y los controladores implementan Serializable. Al iniciar, Main carga el archivo si existe. Si no existe, o si no se puede leer, ofrece cargar los datos de ejemplo. Los datos se guardan al salir con la opción 0 del menú principal.
 - **Limitaciones y mejoras futuras:** 
-  - Reclamos y Solicitud no se comportan distinto. Solo se distinguen por la clase
+  - El límite de 5 pedidos en curso se controla solo al asignar: si a un empleado se le asignan más de 5 y después se avanzan, puede quedar con más de 5 en curso.
+  - Después de un pago parcial, la deuda que queda deja de generar intereses por unos meses, porque los intereses se recalculan sobre el capital actual y se les resta lo ya pagado.
+  - El aviso de una cámara que lleva más de 48 horas sin funcionar sale una sola vez: si se arregla y vuelve a fallar, no se avisa de nuevo.
   - Autorizaciones no guarda el lote ni quién autorizó la visita. 
   - Los datos se guardan solo al salir con la opción 0. Si se cierra el programa de golpe, se pierde lo hecho en esa sesión. 
   - Las clases no declaran serialVersionUID. Si se modifica una clase, el archivo viejo puede dejar de cargarse (en ese caso el programa avisa y arranca desde cero). 
@@ -45,4 +47,14 @@ Etapa 2:
 
 ## 4. Reflexión del grupo
 
+Al principio el trabajo se nos hizo muy largo y nos costó imaginarnos cómo llevar al código todas las relaciones del diagrama de clases. A medida que avanzamos, cada clase nos salía con más soltura. El trabajo nos sirvió para cerrar conceptos que ya conocíamos, como las relaciones entre clases, la herencia y el polimorfismo, y para reforzarlos usándolos de verdad.
 
+También entendimos por completo cómo funciona la separación en vista, controlador y modelo: la vista le pide algo al controlador, el controlador lo resuelve con el modelo, y si algo falla el error sube como excepción hasta la vista, que es la que lo muestra. Verlo funcionar en nuestro propio programa nos ayudó a entender por qué conviene separar así las responsabilidades.
+
+El trabajo también nos mostró que, aunque el modelado se haga con cuidado y teniendo en cuenta todos los requisitos, al empezar a codificar aparecen cambios que no estaban previstos, e incluso hay que modificar o sacar partes del dominio. Lo vimos con SOLID y GRASP: en el diagrama de clases inicial no los habíamos aplicado, y recién al pensar el diseño final y, sobre todo, al programar, nos dimos cuenta de que el modelo no funcionaba como lo habíamos imaginado. Al codificar agregamos vistas, controladores, excepciones propias y la persistencia, sacamos algunos casos de uso y supuestos, y cambiamos varios métodos. Entendimos que el diseño va cambiando durante todo el desarrollo: el diagrama con el que se empieza no es el mismo con el que se termina.
+
+Probar el programa también nos enseñó mucho: las pruebas unitarias y las pruebas del programa funcionando nos mostraron errores que no habíamos visto al escribir el código, como un saldo de fracciones de centavo que dejaba una expensa sin pagar del todo o una autorización rechazada que después hacía que el programa se cerrara. En cuanto al trabajo en grupo, coordinarnos entre los tres no siempre fue fácil por los tiempos de cada uno, y buena parte de la integración del código terminó concentrada en los últimos días.
+
+Algo que haríamos distinto es la forma de encarar la etapa 1. La pensamos como un sistema completo y no tanto como algo que después íbamos a tener que programar. Nos entusiasmamos y sumamos mucho dominio y muchos casos de uso, y al momento de codificar nos costó bastante plasmar todo eso. Creemos que nos dimos más complejidad de la necesaria: se podían aplicar los mismos contenidos de la materia con un sistema más simple.
+
+Como mejora, nos quedó pendiente una interfaz gráfica. No nos animamos a hacerla y tampoco llegábamos con el tiempo; con un poco más de margen la hubiéramos intentado.
