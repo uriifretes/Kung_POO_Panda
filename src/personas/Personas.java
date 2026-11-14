@@ -1,6 +1,5 @@
 package personas;
 
-import java.util.List;
 import java.io.Serializable;
 
 public class Personas implements Serializable {

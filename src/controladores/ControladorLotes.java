@@ -4,7 +4,6 @@ import lotes.Lotes;
 import personas.Residentes;
 import personas.Titular;
 
-import Enums.TipoReclamo;
 import Enums.TipoResidente;
 
 import java.util.ArrayList;

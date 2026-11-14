@@ -14,12 +14,7 @@ Durante la codificación nos apartamos del diseño de la etapa 1 en varios punto
 - **Supuestos.** Sacamos la cancelación de autorizaciones de visita (S34) y el supuesto S36, porque no coincidían con el código. También ajustamos S15 y S32: el asiento de ajuste ya no queda asociado a un pago.
 - **Persistencia.** Agregamos la clase ArchivoDatos (paquete persistencia), que guarda y carga todo el sistema en un único archivo binario, datos_aromos.dat, usando serialización de Java (ObjectOutputStream / ObjectInputStream). Como ControladorGeneral contiene a todos los controladores y estos al modelo completo, alcanza con guardar ese único objeto. Para eso, las clases del modelo y los controladores implementan Serializable. Al iniciar, Main carga el archivo si existe. Si no existe, o si no se puede leer, ofrece cargar los datos de ejemplo. Los datos se guardan al salir con la opción 0 del menú principal.
 - **Limitaciones y mejoras futuras:** 
-  - El límite de 5 pedidos en curso se controla solo al asignar: si a un empleado se le asignan más de 5 y después se avanzan, puede quedar con más de 5 en curso.
-  - Después de un pago parcial, la deuda que queda deja de generar intereses por unos meses, porque los intereses se recalculan sobre el capital actual y se les resta lo ya pagado.
-  - El aviso de una cámara que lleva más de 48 horas sin funcionar sale una sola vez: si se arregla y vuelve a fallar, no se avisa de nuevo.
-  - Autorizaciones no guarda el lote ni quién autorizó la visita. 
-  - Los datos se guardan solo al salir con la opción 0. Si se cierra el programa de golpe, se pierde lo hecho en esa sesión. 
-  - Las clases no declaran serialVersionUID. Si se modifica una clase, el archivo viejo puede dejar de cargarse (en ese caso el programa avisa y arranca desde cero). 
+  - Los datos se guardan solo al salir con la opción 0. Si se cierra el programa de golpe, se pierde lo hecho en esa sesión.  
   - El programa es solo de consola y hay un único administrador. 
   - Posible mejora: reemplazar la serialización por una base de datos.
 ## 2. Dificultades encontradas

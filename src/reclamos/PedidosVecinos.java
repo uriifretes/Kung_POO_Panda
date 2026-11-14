@@ -13,7 +13,6 @@ import Enums.TipoReclamo;
 import Excepciones.LimiteReclamosException;
 import Excepciones.TransicionInvalidaException;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -154,6 +153,9 @@ public abstract class PedidosVecinos implements Comparable<PedidosVecinos>, Seri
             throw new TransicionInvalidaException("El reclamo primero debe ser asignado");
         }
         if (estado==EstadoReclamo.ASIGNADO){
+            if (responsable.cantidadenCurso()>=5){
+                throw new TransicionInvalidaException("El responsable ya tiene 5 reclamos en curso");
+            }
             cambiarEstado(EstadoReclamo.EN_CURSO, momento, observacion);
         }
         else if (estado==EstadoReclamo.EN_CURSO){
@@ -185,6 +187,9 @@ public abstract class PedidosVecinos implements Comparable<PedidosVecinos>, Seri
         long dias = ChronoUnit.DAYS.between(fechaResolucion, momento); ///para ver cuanto paso desde que se cerro hasta ahora
         if (dias>5){
             throw new TransicionInvalidaException("No se puede reabrir el reclamo");
+        }
+        if (responsable.cantidadenCurso()>=5){
+            throw new TransicionInvalidaException("El responsable ya tiene 5 reclamos en curso");
         }
         cambiarEstado(EstadoReclamo.EN_CURSO, momento, "Reabierto");
     }

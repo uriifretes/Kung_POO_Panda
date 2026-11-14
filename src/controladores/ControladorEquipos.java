@@ -80,53 +80,37 @@ public class ControladorEquipos implements Serializable {
     }
 
     public void registrarCamara(String codigo, String nombreSec, String resolucion, int diasGrabacion){
-        if (buscarSector(nombreSec)==null){
-            throw new IllegalArgumentException("No existe un sector con ese nombre");
-        }
         if (buscarEquipo(codigo)!=null){
             throw new IllegalArgumentException("Ya existe un equipo con ese codigo");
         }
         Sectores s = tenerSector(nombreSec);
         Equipos c = new Camaras(codigo, LocalDate.now(),s,resolucion,diasGrabacion);
+        s.agregarEquipos(c);
         equipos.add(c);
     }
     public void registrarLuminarias(String codigo, String nombreSec, String tipo, int potencia){
-        if (buscarSector(nombreSec)==null){
-            throw new IllegalArgumentException("No existe un sector con ese nombre");
-        }
         if (buscarEquipo(codigo)!=null){
             throw new IllegalArgumentException("Ya existe un equipo con ese codigo");
         }
         Sectores s = tenerSector(nombreSec);
         Equipos l = new Luminarias(codigo,LocalDate.now(),s, tipo, potencia );
+        s.agregarEquipos(l);
         equipos.add(l);
     }
 
     public void registrarFalla(String cod, String descripcion, String reportadapor){
-        if (buscarEquipo(cod)==null){
-            throw new IllegalArgumentException("El equipo no existe");
-        }
         tenerEquipo(cod).registrarFalla(LocalDateTime.now(),descripcion,reportadapor);
     }
 
     public void registrarOrden(String cod, String descripcion){
-        if (buscarEquipo(cod)==null){
-            throw new IllegalArgumentException("El equipo no existe");
-        }
         tenerEquipo(cod).generarOrden(descripcion);
     }
 
     public void marcarFueraDeServ(String codigo) {
-        if (buscarEquipo(codigo) == null) {
-            throw new IllegalArgumentException("El equipo no existe");
-        }
         tenerEquipo(codigo).marcarFueraDeServicio();
     }
 
     public void registrarControl(String codigo){
-        if (buscarEquipo(codigo) == null) {
-            throw new IllegalArgumentException("El equipo no existe");
-        }
         tenerEquipo(codigo).registrarControl(LocalDate.now());
     }
 

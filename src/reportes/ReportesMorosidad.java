@@ -3,7 +3,6 @@ package reportes;
 import lotes.Lotes;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ReportesMorosidad implements Reportes {

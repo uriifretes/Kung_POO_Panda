@@ -31,7 +31,6 @@ public abstract class Equipos implements Serializable {
         this.sector = sector;
         this.fallas = new ArrayList<>();
         this.ordenes = new ArrayList<>();
-        sector.agregarEquipos(this);
     }
 
     public String getCodigo() {

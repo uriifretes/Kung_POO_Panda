@@ -38,6 +38,10 @@ public class PruebasEquipos {
         Equipos l2 = new Luminarias("LUM-02", INSTALACION, s, "LED", 40);
         Equipos l3 = new Luminarias("LUM-03", INSTALACION, s, "LED", 40);
         Equipos l4 = new Luminarias("LUM-04", INSTALACION, s, "LED", 40);
+        s.agregarEquipos(l1);
+        s.agregarEquipos(l2);
+        s.agregarEquipos(l3);
+        s.agregarEquipos(l4);
         l1.registrarFalla(TIEMPO, "No enciende", "Ana Lopez");
         l2.registrarFalla(TIEMPO, "No enciende", "Ana Lopez");
         l3.registrarFalla(TIEMPO, "No enciende", "Ana Lopez");

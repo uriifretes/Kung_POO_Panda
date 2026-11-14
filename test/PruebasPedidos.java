@@ -35,6 +35,7 @@ public class PruebasPedidos {
         probarAsignarAGuardiaNoCorresponde();
         probarAsignarPedidoNoAbierto();
         probarLimiteDeCincoEnCurso();
+        probarLimiteAlAvanzar();
         probarAvanzarHastaResuelto();
         probarReabrirDentroDelPlazo();
         probarReabrirFueraDelPlazo();
@@ -139,6 +140,28 @@ public class PruebasPedidos {
             Verificar.ok("Limite de 5 pedidos en curso");
         } catch (TransicionInvalidaException ex) {
             Verificar.falla("Limite de 5 pedidos en curso", ex.getMessage());
+        }
+    }
+
+    private static void probarLimiteAlAvanzar() {
+        Titular t = titular();
+        Lotes lote = new Lotes(1, 500, t);
+        EmpleadosDeMantenimiento e = empleado();
+        List<PedidosVecinos> pedidos = new ArrayList<>();
+        try {
+            for (int i = 1; i <= 6; i++) {
+                PedidosVecinos p = new Reclamos(i, TIEMPO, TipoReclamo.MANTENIMIENTO, "Pedido " + i, lote, t);
+                p.asignar(e, TIEMPO.plusHours(1));
+                pedidos.add(p);
+            }
+            for (int i = 0; i < pedidos.size(); i++) {
+                pedidos.get(i).avanzar(TIEMPO.plusHours(2), "Trabajando");
+            }
+            Verificar.falla("Limite de 5 al avanzar", "no lanzo excepcion");
+        } catch (TransicionInvalidaException ex) {
+            Verificar.igual("Limite de 5 al avanzar", 5, e.cantidadenCurso());
+        } catch (LimiteReclamosException ex) {
+            Verificar.falla("Limite de 5 al avanzar", ex.getMessage());
         }
     }
 
