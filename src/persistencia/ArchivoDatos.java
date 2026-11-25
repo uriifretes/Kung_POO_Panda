@@ -1,5 +1,6 @@
 package persistencia;
 
+import configuracion.ConfiguracionBarrio;
 import controladores.ControladorGeneral;
 
 import java.io.File;
@@ -47,7 +48,9 @@ public class ArchivoDatos {
         try {
             entrada = new ObjectInputStream(new FileInputStream(nombreArchivo));
             general = (ControladorGeneral) entrada.readObject();
-        } catch (IOException | ClassNotFoundException e) {
+            ConfiguracionBarrio.cargarGuardada(general.getConfiguracion());
+        } catch (IOException | ClassNotFoundException | IllegalArgumentException e) {
+            general = null;
             System.out.println("No se pudieron cargar los datos guardados: " + e.getMessage());
         } finally {
             if (entrada != null) {

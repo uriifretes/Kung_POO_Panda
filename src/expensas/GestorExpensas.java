@@ -1,5 +1,6 @@
 package expensas;
 
+import configuracion.ConfiguracionBarrio;
 import lotes.Lotes;
 
 import java.time.LocalDate;
@@ -17,7 +18,7 @@ public class GestorExpensas implements Serializable {
        for (int i = 0; i < lotes.size(); i++) {
                superficie = superficie + lotes.get(i).getSuperficie();
        }
-        LocalDate vencimiento = periodo.atDay(10);
+        LocalDate vencimiento = periodo.atDay(ConfiguracionBarrio.getInstancia().getDiaVencimiento());
         for (int i = 0; i < lotes.size(); i++) {
             Lotes l = lotes.get(i);
             double coeficiente = l.getSuperficie() / superficie;

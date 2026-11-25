@@ -1,5 +1,6 @@
 package visitas;
 
+import configuracion.ConfiguracionBarrio;
 import personal.GuardiasDeSeguridad;
 
 import Excepciones.IngresoDuplicadoException;
@@ -20,8 +21,9 @@ public class AutorizacionesRecurrentes extends Autorizaciones {
             throw new IllegalArgumentException("Has ingresado datos invalidos");
         }
         long dias = ChronoUnit.DAYS.between(fechaDesde, fechaHasta) + 1; ///Para que a partir de 30 dias ya no sirven las autorizaciones
-        if (dias > 30) {
-            throw new IllegalArgumentException("La autorización recurrente puede durar como máximo 30 días");
+        int diasMaximos = ConfiguracionBarrio.getInstancia().getDiasMaximosAutorizacion();
+        if (dias > diasMaximos) {
+            throw new IllegalArgumentException("La autorización recurrente puede durar como máximo " + diasMaximos + " días");
         }
         this.fechaDesde = fechaDesde;
         this.fechaHasta = fechaHasta;

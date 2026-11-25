@@ -1,6 +1,7 @@
 package equipos;
 
 import Enums.Prioridad;
+import configuracion.ConfiguracionBarrio;
 
 import java.time.LocalDate;
 
@@ -31,7 +32,7 @@ public class Luminarias extends Equipos{
     }
     @Override
     public Prioridad prioridaddeFalla(){
-        if (getSector().cantidadLuminariasFallando()>3){
+        if (getSector().cantidadLuminariasFallando()>ConfiguracionBarrio.getInstancia().getLuminariasParaPrioridadAlta()){
             return Prioridad.ALTA;
         }
         return Prioridad.MEDIA;

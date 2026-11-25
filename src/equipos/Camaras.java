@@ -1,5 +1,6 @@
 package equipos;
 
+import configuracion.ConfiguracionBarrio;
 import notificaciones.Notificaciones;
 import personal.Administrador;
 
@@ -39,7 +40,7 @@ public class Camaras extends Equipos{
             return false;
         }
         long horas = ChronoUnit.HOURS.between(ultimaFalla().getFechaHora(), ahora);
-        if (horas>48){
+        if (horas>ConfiguracionBarrio.getInstancia().getHorasCamaraSinFuncionar()){
             return true;
         }
         else {
@@ -52,7 +53,7 @@ public class Camaras extends Equipos{
         if (!avisado && superaHorasSinFuncionar(ahora)) {
             avisado = true;
             admin.agregarNotificacion(new Notificaciones(ahora, TipoNotificacion.CAMARA_SIN_FUNCIONAR,
-                    "La camara " + getCodigo() + " lleva mas de 48 horas sin funcionar", admin));
+                    "La camara " + getCodigo() + " lleva mas de " + ConfiguracionBarrio.getInstancia().getHorasCamaraSinFuncionar() + " horas sin funcionar", admin));
             return true;
         }
         return false;

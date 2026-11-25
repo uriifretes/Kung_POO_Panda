@@ -1,5 +1,6 @@
 package reclamos;
 
+import configuracion.ConfiguracionBarrio;
 import lotes.Lotes;
 import notificaciones.Notificaciones;
 import personal.Administrador;
@@ -138,8 +139,9 @@ public abstract class PedidosVecinos implements Comparable<PedidosVecinos>, Seri
         if (p==null){
             throw new IllegalArgumentException("Has ingresado datos incorrectos");
         }
-        if (p.cantidadenCurso()>=5){
-            throw new LimiteReclamosException("Alcanzo el limite de reclamos");
+        int limite = ConfiguracionBarrio.getInstancia().getLimitePedidosEnCurso();
+        if (p.cantidadenCurso()>=limite){
+            throw new LimiteReclamosException("Alcanzo el limite de " + limite + " reclamos en curso");
         }
         if (!p.puedeAtender(tipo)) {
             throw new IllegalArgumentException("Ese personal no atiende reclamos de tipo " + tipo);
@@ -153,8 +155,9 @@ public abstract class PedidosVecinos implements Comparable<PedidosVecinos>, Seri
             throw new TransicionInvalidaException("El reclamo primero debe ser asignado");
         }
         if (estado==EstadoReclamo.ASIGNADO){
-            if (responsable.cantidadenCurso()>=5){
-                throw new TransicionInvalidaException("El responsable ya tiene 5 reclamos en curso");
+            int limite = ConfiguracionBarrio.getInstancia().getLimitePedidosEnCurso();
+            if (responsable.cantidadenCurso()>=limite){
+                throw new TransicionInvalidaException("El responsable ya tiene " + limite + " reclamos en curso");
             }
             cambiarEstado(EstadoReclamo.EN_CURSO, momento, observacion);
         }
@@ -184,12 +187,13 @@ public abstract class PedidosVecinos implements Comparable<PedidosVecinos>, Seri
         if (estado!= EstadoReclamo.RESUELTO){
             throw new TransicionInvalidaException("El reclamo no esta resuelto, no tiene sentido que se reabra");
         }
+        ConfiguracionBarrio config = ConfiguracionBarrio.getInstancia();
         long dias = ChronoUnit.DAYS.between(fechaResolucion, momento); ///para ver cuanto paso desde que se cerro hasta ahora
-        if (dias>5){
+        if (dias>config.getDiasParaReabrir()){
             throw new TransicionInvalidaException("No se puede reabrir el reclamo");
         }
-        if (responsable.cantidadenCurso()>=5){
-            throw new TransicionInvalidaException("El responsable ya tiene 5 reclamos en curso");
+        if (responsable.cantidadenCurso()>=config.getLimitePedidosEnCurso()){
+            throw new TransicionInvalidaException("El responsable ya tiene " + config.getLimitePedidosEnCurso() + " reclamos en curso");
         }
         cambiarEstado(EstadoReclamo.EN_CURSO, momento, "Reabierto");
     }
@@ -199,18 +203,20 @@ public abstract class PedidosVecinos implements Comparable<PedidosVecinos>, Seri
         if (!seCierraSolo() || estado != EstadoReclamo.RESUELTO) {
             return false;
         }
+        int diasMaximos = ConfiguracionBarrio.getInstancia().getDiasParaReabrir();
         long dias = ChronoUnit.DAYS.between(fechaResolucion, ahora);
-        if (dias > 5) {
-            cambiarEstado(EstadoReclamo.CERRADO, ahora, "Se cerro porque pasaron mas de 5 dias");
+        if (dias > diasMaximos) {
+            cambiarEstado(EstadoReclamo.CERRADO, ahora, "Se cerro porque pasaron mas de " + diasMaximos + " dias");
             return true;
         }
         return false;
     }
 
     public boolean escalarPortiempo(LocalDateTime ahora, Administrador admin){
-        if (!escalado&& getPrioridad()==Prioridad.ALTA&&estado==EstadoReclamo.ABIERTO&&ChronoUnit.HOURS.between(fechaHora,ahora)>24){ //Chrono units aca cuenta la dferentes de horas entre, por el .hours y el .between
+        int horas = ConfiguracionBarrio.getInstancia().getHorasParaEscalar();
+        if (!escalado&& getPrioridad()==Prioridad.ALTA&&estado==EstadoReclamo.ABIERTO&&ChronoUnit.HOURS.between(fechaHora,ahora)>horas){ //Chrono units aca cuenta la dferentes de horas entre, por el .hours y el .between
             escalado = true;
-            Notificaciones n = new Notificaciones(ahora, TipoNotificacion.ESCALAMIENTO,"El reclamo " + numero + " esta hace mas de 24hrs", admin);
+            Notificaciones n = new Notificaciones(ahora, TipoNotificacion.ESCALAMIENTO,"El reclamo " + numero + " esta hace mas de " + horas + "hrs", admin);
             admin.agregarNotificacion(n);
             return true;
         }

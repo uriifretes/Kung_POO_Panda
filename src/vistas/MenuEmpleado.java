@@ -1,5 +1,6 @@
 package vistas;
 
+import configuracion.ConfiguracionBarrio;
 import controladores.ControladorGeneral;
 import personal.EmpleadosDeMantenimiento;
 
@@ -23,7 +24,7 @@ public class MenuEmpleado {
             return;
         }
         int legajo = empleado.getLegajo();
-        System.out.println("Bienvenido/a " + empleado.getNombre() + " | Reclamos en curso: " + empleado.cantidadenCurso() + " (maximo 5)");
+        System.out.println("Bienvenido/a " + empleado.getNombre() + " | Reclamos en curso: " + empleado.cantidadenCurso() + " (maximo " + ConfiguracionBarrio.getInstancia().getLimitePedidosEnCurso() + ")");
 
         int opcion = -1;
         while (opcion != 0) {

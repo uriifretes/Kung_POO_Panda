@@ -5,5 +5,6 @@ public class PruebasTodas {
         PruebasExpensas.main(args);
         PruebasEquipos.main(args);
         PruebasVisitas.main(args);
+        PruebasConfiguracion.main(args);
     }
 }

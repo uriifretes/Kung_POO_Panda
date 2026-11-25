@@ -12,6 +12,7 @@ public class MenuAdministrador {
     private VistaEquipos vistaEquipos;
     private VistaVisitas vistaVisitas;
     private VistaNotificaciones vistaNotificaciones;
+    private VistaConfiguracion vistaConfiguracion;
 
     public MenuAdministrador(ControladorGeneral general) {
         this.general = general;
@@ -22,6 +23,7 @@ public class MenuAdministrador {
         this.vistaEquipos = new VistaEquipos(general.getEquipos());
         this.vistaVisitas = new VistaVisitas(general.getVisitas());
         this.vistaNotificaciones = new VistaNotificaciones();
+        this.vistaConfiguracion = new VistaConfiguracion(general.getConfiguracion());
     }
 
     public void iniciar() {
@@ -42,8 +44,9 @@ public class MenuAdministrador {
             System.out.println("7. Reportes");
             System.out.println("8. Mis notificaciones");
             System.out.println("9. Procesar vencimientos");
+            System.out.println("10. Reglas del barrio");
             System.out.println("0. Volver");
-            opcion = Consola.leerOpcion("Opcion", 0, 9);
+            opcion = Consola.leerOpcion("Opcion", 0, 10);
             switch (opcion) {
                 case 1:
                     menuLotes();
@@ -71,6 +74,34 @@ public class MenuAdministrador {
                     break;
                 case 9:
                     procesarVencimientos();
+                    break;
+                case 10:
+                    menuConfiguracion();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private void menuConfiguracion() {
+        int opcion = -1;
+        while (opcion != 0) {
+            Consola.titulo("REGLAS DEL BARRIO");
+            System.out.println("1. Ver reglas");
+            System.out.println("2. Modificar una regla");
+            System.out.println("3. Volver a los valores por defecto");
+            System.out.println("0. Volver");
+            opcion = Consola.leerOpcion("Opcion", 0, 3);
+            switch (opcion) {
+                case 1:
+                    vistaConfiguracion.mostrar();
+                    break;
+                case 2:
+                    vistaConfiguracion.modificar();
+                    break;
+                case 3:
+                    vistaConfiguracion.restablecer();
                     break;
                 default:
                     break;

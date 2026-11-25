@@ -1,6 +1,7 @@
 package expensas;
 
 import Enums.EstadoExpensa;
+import configuracion.ConfiguracionBarrio;
 import Enums.MedioPago;
 
 import java.time.LocalDate;
@@ -96,11 +97,12 @@ public class Expensas implements Serializable {
     }
 
     public double calcularIntereses(LocalDate fecha){
-        if (saldoCapital*0.03*(mesesDeAtraso(fecha))-interesesPagados<0){
+        double tasa = ConfiguracionBarrio.getInstancia().getPorcentajeInteres() / 100;
+        if (saldoCapital*tasa*(mesesDeAtraso(fecha))-interesesPagados<0){
             return 0;
         }
         else {
-            return (saldoCapital*0.03*(mesesDeAtraso(fecha))-interesesPagados);
+            return (saldoCapital*tasa*(mesesDeAtraso(fecha))-interesesPagados);
         }
     }
 

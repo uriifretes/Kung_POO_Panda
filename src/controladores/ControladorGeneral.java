@@ -1,5 +1,6 @@
 package controladores;
 
+import configuracion.ConfiguracionBarrio;
 import equipos.Camaras;
 import equipos.Equipos;
 import lotes.Lotes;
@@ -17,6 +18,7 @@ public class ControladorGeneral implements Serializable {
     private ControladorReclamos reclamos;
     private ControladorEquipos equipos;
     private ControladorVisitas visitas;
+    private ConfiguracionBarrio configuracion;
 
     public ControladorGeneral() {
         lotes = new ControladorLotes();
@@ -25,6 +27,11 @@ public class ControladorGeneral implements Serializable {
         reclamos = new ControladorReclamos(lotes, personal);
         equipos = new ControladorEquipos(personal);
         visitas = new ControladorVisitas(lotes, personal);
+        configuracion = ConfiguracionBarrio.getInstancia();
+    }
+
+    public ConfiguracionBarrio getConfiguracion() {
+        return configuracion;
     }
 
     public ControladorLotes getLotes() {

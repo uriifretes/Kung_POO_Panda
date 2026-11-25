@@ -32,6 +32,8 @@ RF09 - El sistema deberá permitir al vecino autorizar visitas y proveedores, y 
 
 RF10 - El sistema deberá emitir los reportes de reclamos pendientes, de morosidad por lote y de equipos fuera de servicio.
 
+RF11 - El sistema deberá permitir al administrador consultar y modificar las reglas del barrio (interés por mora, día de vencimiento de las expensas, cantidad de expensas impagas para ser moroso, límite de pedidos en curso, horas para escalar un reclamo, días para reabrir un reclamo, horas de una cámara sin funcionar, luminarias fallando para prioridad alta y duración máxima de una autorización recurrente), sin modificar el código. Los valores modificados se conservan entre ejecuciones. Los números que aparecen en los demás requerimientos son los valores por defecto.
+
 ## Reglas de negocio
 
 Las reglas de negocio son las del enunciado (ver `enunciado.md`).

@@ -1,5 +1,6 @@
 package vistas;
 
+import configuracion.ConfiguracionBarrio;
 import controladores.ControladorGeneral;
 import lotes.Lotes;
 import personas.Personas;
@@ -113,7 +114,7 @@ public class MenuVecino {
         System.out.println("4. Ver detalle de un pedido");
         System.out.println("5. Comentar un pedido");
         System.out.println("6. Cancelar un pedido (solo si esta ABIERTO)");
-        System.out.println("7. Reabrir un reclamo resuelto (hasta 5 dias)");
+        System.out.println("7. Reabrir un reclamo resuelto (hasta " + ConfiguracionBarrio.getInstancia().getDiasParaReabrir() + " dias)");
         System.out.println("8. Ver expensas y deuda");
         System.out.println("9. Apelar una deuda");
         System.out.println("10. Visitas y proveedores");
@@ -134,7 +135,7 @@ public class MenuVecino {
             System.out.println("1. Registrar visitante");
             System.out.println("2. Registrar proveedor");
             System.out.println("3. Autorizar visita (un solo ingreso)");
-            System.out.println("4. Autorizar visita recurrente (hasta 30 dias)");
+            System.out.println("4. Autorizar visita recurrente (hasta " + ConfiguracionBarrio.getInstancia().getDiasMaximosAutorizacion() + " dias)");
             System.out.println("5. Ver autorizaciones de una persona");
             System.out.println("0. Volver");
             opcion = Consola.leerOpcion("Opcion", 0, 5);

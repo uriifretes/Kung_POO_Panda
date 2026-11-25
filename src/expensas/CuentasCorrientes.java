@@ -1,5 +1,6 @@
 package expensas;
 
+import configuracion.ConfiguracionBarrio;
 import lotes.Lotes;
 import notificaciones.Notificaciones;
 
@@ -113,12 +114,13 @@ public class CuentasCorrientes implements Serializable {
     }
 
     public void actualizarMorosidad(LocalDateTime fecha){
-        if (cantidadPeriodosImpagos(fecha.toLocalDate())>3 && !moroso){
+        int maximo = ConfiguracionBarrio.getInstancia().getPeriodosParaMorosidad();
+        if (cantidadPeriodosImpagos(fecha.toLocalDate())>maximo && !moroso){
             moroso = true;
             Notificaciones n = new Notificaciones(fecha, TipoNotificacion.MOROSIDAD,
-                    "El lote " + lote.getNumero() + " tiene más de 3 expensas impagas", lote.getTitular());
+                    "El lote " + lote.getNumero() + " tiene más de " + maximo + " expensas impagas", lote.getTitular());
             lote.getTitular().agregarNotificacion(n);
-        } else if (cantidadPeriodosImpagos(fecha.toLocalDate())>3){
+        } else if (cantidadPeriodosImpagos(fecha.toLocalDate())>maximo){
             moroso = true;
         }
         else {

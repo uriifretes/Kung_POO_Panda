@@ -32,8 +32,11 @@ Se ejecutaron el 12/11/2026 a las 17:33, corriendo el programa (`aplicacion.Main
 | PF24 | CU41 Guardar salida | Salida de una visita que está adentro | Guardia legajo 10, ingreso y salida de DNI 36000222 | Se registra la salida | Egreso registrado a las 17:33. | Sí |
 | PF25 | CU48 Ver notificaciones | El titular de un lote moroso ve su aviso | Titular DNI 30555666 (lote 3) | Aparece la notificación de morosidad | [NUEVA] 12/11/2026 17:33 \| MOROSIDAD \| El lote 3 tiene más de 3 expensas impagas | Sí |
 | PF26 | Persistencia | Los datos se conservan entre ejecuciones | 1.ª ejecución: el titular DNI 30111222 crea un reclamo y sale. 2.ª ejecución: ve los pedidos de su lote | Al salir se guardan los datos y al volver a entrar se cargan | 1.ª: «Datos guardados en datos_aromos.dat». 2.ª: «Se cargaron los datos guardados.» y aparece el reclamo #8 | Sí |
+| PF27 | Reglas del barrio | El administrador sube el interés por mora y la deuda se recalcula | Admin legajo 1: deuda del lote 3, opción 10 > Modificar > regla 1 = 4, deuda del lote 3 otra vez | La deuda aumenta porque los intereses se calculan al 4 % | Antes: $1277091.46. «Regla actualizada.» Después: $1311731.71 | Sí |
+| PF28 | Reglas del barrio | Se intenta poner un límite de pedidos en curso igual a 0 | Admin legajo 1, opción 10 > Modificar > regla 4 = 0 | Se rechaza y el valor no cambia | No se pudo completar la operacion: El limite de pedidos en curso tiene que ser mayor a 0 | Sí |
+| PF29 | Reglas del barrio y persistencia | Las reglas modificadas se conservan entre ejecuciones | 1.ª ejecución: interés en 4 % y salir. 2.ª ejecución: opción 10 > Ver reglas | Al volver a entrar el interés sigue en 4 % | «Se cargaron los datos guardados.» y «1. Interes mensual por mora: 4.0 %» | Sí |
 
-Resultado: **26 de 26 casos pasaron.**
+Resultado: **29 de 29 casos pasaron.** Los casos PF27 a PF29 corresponden a la mejora del patrón Singleton (ver `docs/mejora_singleton.md`) y se ejecutaron el 23/11/2026.
 
 Las reglas que dependen del paso del tiempo (escalamiento a las 24 horas, cierre automático a los 5 días, aviso de cámara a las 48 horas) no se pueden probar por consola sin esperar ese tiempo. Por eso se prueban en las pruebas unitarias, con fechas fijas.
 
@@ -47,7 +50,10 @@ Están en la carpeta `test`, en Java puro: cada clase tiene un `main` que crea l
 | `PruebasExpensas` | Intereses, pagos (primero intereses y después capital), saldo a favor, morosidad, emisión según superficie, número de operación, asientos de ajuste | 27 |
 | `PruebasEquipos` | Prioridad de cámaras y luminarias, falla, orden, cierre, equipo dado de baja, aviso de cámara a las 48 horas | 12 |
 | `PruebasVisitas` | Vigencia de autorizaciones únicas y recurrentes, ingreso, salida, ingreso duplicado, guardia de ronda | 13 |
+| `PruebasConfiguracion` | Instancia única (Singleton), valores por defecto, cambio del interés y del límite de pedidos en curso, valores inválidos, volver a los valores por defecto | 13 |
 
-`PruebasTodas` corre las cuatro seguidas. Resultado: **82 de 82 pruebas pasaron.**
+`PruebasTodas` corre las cinco seguidas. Resultado: **95 de 95 pruebas pasaron.**
+
+Como `ConfiguracionBarrio` tiene una única instancia para todo el programa, las pruebas que cambian una regla la vuelven a su valor por defecto al terminar, para no afectar a las pruebas que se ejecutan después.
 
 Una de las pruebas (`probarPagoTotalConDecimales`) encontró un error: al pagar el total de una expensa con un importe con muchos decimales, quedaba un saldo de fracciones de centavo y la expensa seguía como PARCIAL. Se corrigió en `Expensas.registrarPago()`.

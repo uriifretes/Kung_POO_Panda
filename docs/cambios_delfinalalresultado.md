@@ -26,3 +26,9 @@ Cambios en el diagrama de clases respecto del final de la etapa 1
 - Muchos metodos cambian de nombre.
 - La mayoría de las clases pasan a llamarse en plural, como en el código
 - Se agrega la clase ArchivoDatos (paquete persistencia), que guarda todos los datos en un archivo al salir del programa y los carga al iniciarlo. Para eso las clases del modelo y los controladores implementan Serializable.    
+
+Cambios de la mejora (patrón Singleton), en Diagrama_de_clases_mejora_singleton
+
+- Se agrega la clase ConfiguracionBarrio (paquete configuracion), con una única instancia: constructor privado, el atributo instancia y el método getInstancia(). Guarda las reglas del barrio que antes estaban escritas en el código, y suma cargarGuardada(guardada) y restablecerValores().
+- Expensas, GestorExpensas, CuentasCorrientes, PedidosVecinos, Camaras, Luminarias y AutorizacionesRecurrentes usan ConfiguracionBarrio (relación «usa»).
+- En este diagrama se muestra el constructor de ConfiguracionBarrio, porque que sea privado es lo que garantiza que haya una sola instancia.

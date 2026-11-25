@@ -1,5 +1,6 @@
 package vistas;
 
+import configuracion.ConfiguracionBarrio;
 import controladores.ControladorVisitas;
 import visitas.Autorizaciones;
 import visitas.AutorizacionesRecurrentes;
@@ -69,7 +70,7 @@ public class VistaVisitas {
     }
 
     public void autorizacionRecurrente(int nLote, String docAutorizante) {
-        Consola.titulo("Autorizar un proveedor/visita recurrente (maximo 30 dias)");
+        Consola.titulo("Autorizar un proveedor/visita recurrente (maximo " + ConfiguracionBarrio.getInstancia().getDiasMaximosAutorizacion() + " dias)");
         try {
             String docVisitante = Consola.leerTexto("Documento del visitante");
             LocalDate fechaDesde = Consola.leerFecha("Fecha desde");

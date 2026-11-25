@@ -14,6 +14,7 @@ Programa de consola en Java para administrar el barrio cerrado Los Aromos. Permi
 - Informar fallas de luminarias y cámaras y generar órdenes de mantenimiento.
 - Autorizar visitas y proveedores, y registrar sus ingresos y egresos en la portería.
 - Avisar al titular y al administrador con notificaciones, y generar reportes de reclamos pendientes, morosidad y equipos fuera de servicio.
+- Configurar las reglas del barrio (interés por mora, día de vencimiento, límite de pedidos en curso, etc.) desde el menú del administrador, en la opción «Reglas del barrio».
 
 Al entrar se elige un rol (titular, residente, visitante/proveedor, administrador, guardia de seguridad o empleado de mantenimiento) y cada uno tiene su propio menú.
 
@@ -132,5 +133,5 @@ El plan de pruebas funcionales, con los resultados, está en `docs/plan_de_prueb
 
 - `docs`: enunciado, requisitos, documento de diseño, notas de cambios, plan de pruebas e informe
 - `docs/uml`: diagramas
-- `src`: código, separado en paquetes (`persistencia` guarda y carga los datos)
+- `src`: código, separado en paquetes (`persistencia` guarda y carga los datos y `configuracion` tiene las reglas del barrio)
 - `test`: pruebas unitarias
